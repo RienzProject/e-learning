@@ -29,23 +29,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="nama" class="form-control-label">Nama Siswa <span
                                         class="text-danger">*</span></label>
                                 <input class="form-control" type="text" placeholder="Masukkan Nama Siswa" name="nama"
                                     required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="jenis_kelamin" class="form-control-label">Jenis Kelamin <span
-                                        class="text-danger">*</span></label>
-                                <select name="jenis_kelamin" id="" class="form-select">
-                                    <option value="0" selected disabled>Pilih Jenis Kelamin</option>
-                                    <option value="Laki-Laki">Laki-Laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                </select>
                             </div>
                         </div>
                     </div>
@@ -110,6 +99,21 @@
                                         <option value="{{ $item->id }}">{{ $item->kelas->nama }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="jenisKelaminLaki" name="jenis_kelamin" value="Laki-Laki" required>
+                                    <label class="form-check-label" for="jenisKelaminLaki">Laki-Laki</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="jenisKelaminPerempuan" name="jenis_kelamin" value="Perempuan">
+                                    <label class="form-check-label" for="jenisKelaminPerempuan">Perempuan</label>
+                                </div>
                             </div>
                         </div>
                     </div>

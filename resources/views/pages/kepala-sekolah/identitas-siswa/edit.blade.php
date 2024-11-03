@@ -35,18 +35,6 @@
                                     placeholder="Masukkan Nama Siswa" name="nama">
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="jenis_kelamin" class="form-control-label">Jenis Kelamin</label>
-                                <select name="jenis_kelamin" id="jenis_kelamin" class="form-select">
-                                    <option value="0" disabled>Pilih Jenis Kelamin</option>
-                                    <option value="Laki-Laki" {{ $data->jenis_kelamin === 'Laki-Laki' ? 'selected' : '' }}>
-                                        Laki-Laki</option>
-                                    <option value="Perempuan" {{ $data->jenis_kelamin === 'Perempuan' ? 'selected' : '' }}>
-                                        Perempuan</option>
-                                </select>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -96,6 +84,21 @@
                                 <label for="alamat" class="form-control-label">Alamat Siswa</label>
                                 <input class="form-control" value="{{ $data->alamat }}" type="text"
                                     placeholder="Masukkan Alamat Siswa" name="alamat">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="jenisKelaminLaki" name="jenis_kelamin" value="Laki-Laki" required>
+                                    <label class="form-check-label" for="jenisKelaminLaki">Laki-Laki</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="jenisKelaminPerempuan" name="jenis_kelamin" value="Perempuan">
+                                    <label class="form-check-label" for="jenisKelaminPerempuan">Perempuan</label>
+                                </div>
                             </div>
                         </div>
                     </div>
