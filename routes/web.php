@@ -69,7 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
 		})->name('sign-up');
 	});
 
-	// WaliKelas
+	// ---WaliKelas
 	Route::group(['middleware' => 'role:Wali Kelas'], function () {
 		Route::get('/', [HomeController::class, 'home']);
 		Route::get('dashboard-wali-kelas', function () {
