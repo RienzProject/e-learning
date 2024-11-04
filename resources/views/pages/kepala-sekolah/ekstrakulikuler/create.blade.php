@@ -31,6 +31,12 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="jam" class="form-control-label">Jam <span class="text-danger">*</span></label>
+                                <input class="form-control" type="time"  name="jam" required>
+                            </div>
+                        </div>
                 </div>
                 <div class="d-flex justify-content-end">
                     <a href="/ekstrakulikuler" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>

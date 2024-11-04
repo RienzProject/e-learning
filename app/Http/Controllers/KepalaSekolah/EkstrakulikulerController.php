@@ -35,13 +35,17 @@ class EkstrakulikulerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function getData()
-{
-    // Ambil data dari tabel ekstrakulikuler
-    $data = Ekstrakulikuler::select('id', 'nama', 'hari', 'created_at', 'updated_at')->get();
-    // Kirim data dalam format JSON sesuai dengan kebutuhan DataTables
-    return response()->json(['data' => $data]);
-}
+    public function store(Request $request)
+    {
+        $data = new Ekstrakulikuler();
+        $data->nama = $request->nama;
+        $data->hari = $request->hari;
+        $data->jam = $request->jam;
+
+        $data->save();
+
+        return redirect('/ekstrakulikuler');
+    }
 
     /**
      * Display the specified resource.
@@ -76,19 +80,13 @@ class EkstrakulikulerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-            'hari' => 'required|string|max:255',
-        ]);
         
         $data = Ekstrakulikuler::find($id);
 
-        if (!$data) {
-            return redirect('/ekstrakulikuler')->with('error', 'Data tidak ditemukan!');
-        }
         
         $data->nama = $request->nama;
         $data->hari = $request->hari;
+        $data->jam = $request->jam;
 
         $data->save();
 
