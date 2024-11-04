@@ -17,10 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('hari');
-<<<<<<< HEAD
             $table->time('jam');
-=======
->>>>>>> julio
             $table->timestamps();
         });
     }
