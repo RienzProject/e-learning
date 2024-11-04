@@ -69,11 +69,7 @@ Route::group(['middleware' => ['auth']], function () {
 		})->name('sign-up');
 	});
 
-<<<<<<< HEAD
-	// Wali Kelas
-=======
 	// ---WaliKelas
->>>>>>> julio
 	Route::group(['middleware' => 'role:Wali Kelas'], function () {
 		Route::get('/', [HomeController::class, 'home']);
 		Route::get('dashboard-wali-kelas', function () {
@@ -88,11 +84,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::put('/siswa/{id}/tambah-siswa', [SiswaController::class, 'tambahSiswa']);
 
 		Route::resource('/nilai-siswa', NilaiSiswaController::class);
-<<<<<<< HEAD
-=======
         Route::get('/nilai-siswa/{id}/input-nilai', [NilaiSiswaController::class, 'pageInputNilai']);
         Route::post('/nilai-siswa/input-nilai', [NilaiSiswaController::class, 'inputNilaiStore']);
->>>>>>> julio
 
 		Route::resource('/ekstrakulikuler-siswa', EkstrakulikulerSiswaController::class);
 		Route::get('/ekstrakulikuler-siswa/{id}/input-catatan-siswa', [EkstrakulikulerSiswaController::class, 'pageCatatanSiswa'])->name('page-input-catatan-siswa');
@@ -100,7 +93,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		// Route::resource('/mata-pelajaran', MataPelajaranController::class);
 		// Route::get('/mata-pelajaran/{id}/input-nilai', [MataPelajaranController::class, 'pageInputNilai']);
-		// Route::post('/mata-pelajaran/input-nilai', [MataPelajaranController::class, 'inputNilaiStore']);
+		Route::post('/mata-pelajaran/input-nilai', [MataPelajaranController::class, 'inputNilaiStore']);
 
 		Route::resource('/jadwal-kelas', JadwalKelasController::class);
 		Route::resource('/kelola-ruang-presensi', KelolaRuangPresensiController::class);
@@ -137,11 +130,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::resource('/upload-tugas-guru', UploadTugasGuruController::class);
 		Route::post('/upload-tugas-guru/{id}/unduh-tugas', [UploadTugasGuruController::class, 'unduhTugas']);
-<<<<<<< HEAD
-		
-=======
 
->>>>>>> julio
 		Route::resource('/capaian-kompetensi-guru', CapaianKompetensiGuruController::class);
 		Route::get('/capaian-kompetensi-guru/{id}/input-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'pageCapaianKompetensi'])->name('page-input-capaian-kompetensi-guru');
 		Route::post('/capaian-kompetensi-guru/input-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'inputCapaianKompetensiStore']);

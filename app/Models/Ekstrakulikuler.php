@@ -10,11 +10,8 @@ class Ekstrakulikuler extends Model
     use HasFactory;
     protected $table = 'ekstrakulikuler';
     protected $primarykey = 'id';
-<<<<<<< HEAD
     protected $fillable = ['nama','hari','jam'];
-=======
-    protected $fillable = ['nama','hari'];
->>>>>>> julio
+
 
     public function user() {
         return $this->belongsTo(User::class);

@@ -45,20 +45,6 @@ class NilaiSiswaController extends Controller
 
         $uploadTugas->save();
 
-<<<<<<< HEAD
-        foreach ($request->siswa_id as $index => $siswaId) {
-            $siswaMataPelajaran = SiswaMataPelajaran::where('siswa_id', $siswaId)->where('mata_pelajaran_id', $request->mata_pelajaran_id)->first();
-
-            if ($siswaMataPelajaran) {
-                $nilaiSiswa = new NilaiSiswa();
-                $nilaiSiswa->siswa_mata_pelajaran_id = $siswaMataPelajaran->id;
-                $nilaiSiswa->upload_tugas_id = $uploadTugas->id;
-                $nilaiSiswa->nilai = $request->nilai[$index];
-
-                $nilaiSiswa->save();
-            }
-        }
-=======
         // foreach ($request->siswa_id as $index => $siswaId) {
         //     $siswaMataPelajaran = SiswaMataPelajaran::where('siswa_id', $siswaId)->where('mata_pelajaran_id', $request->mata_pelajaran_id)->first();
 
@@ -71,26 +57,12 @@ class NilaiSiswaController extends Controller
         //         $nilaiSiswa->save();
         //     }
         // }
->>>>>>> julio
 
         return redirect('/nilai-siswa');
     }
 
     public function show($id)
     {
-<<<<<<< HEAD
-        $uploadTugas = UploadTugas::find($id);
-        $siswaMataPelajaran = SiswaMataPelajaran::whereHas('nilaiSiswa', function ($query) use ($id) {
-            $query->where('upload_tugas_id', '=', $id);
-        })->with('siswa', 'nilaiSiswa.uploadTugas')->get();
-
-        foreach ($siswaMataPelajaran as $item) {
-            $nilaiSiswa = $item->nilaiSiswa->firstWhere('upload_tugas_id', $id);
-            $item->nilai = $nilaiSiswa ? $nilaiSiswa->nilai : null;
-        }
-
-        return view('pages.wali-kelas.nilai-siswa.cek-nilai-siswa', compact('uploadTugas', 'siswaMataPelajaran'));
-=======
         $uploadTugas = UploadTugas::findOrFail($id);
 
         $siswaMataPelajaran = SiswaMataPelajaran::with(['siswa', 'nilaiSiswa' => function ($query) use ($id) {
@@ -144,6 +116,5 @@ class NilaiSiswaController extends Controller
         }
 
         return redirect()->back()->with('success', 'Nilai berhasil disimpan.');
->>>>>>> julio
     }
 }
