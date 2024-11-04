@@ -74,7 +74,8 @@
                                     </td>
                                     <td>
                                         <div class="d-flex px-3 py-1">
-                                            <select class="form-control" id="mata_pelajaran_id" name="mata_pelajaran_id" required>
+                                            <select class="form-control" id="mata_pelajaran_id" name="mata_pelajaran_id"
+                                                required>
                                                 <option value="" disabled selected>Pilih Mata Pelajaran</option>
                                                 @foreach ($mataPelajaran as $item)
                                                     <option value="{{ $item->id }}">{{ $item->nama }}</option>
@@ -86,10 +87,13 @@
                             </table>
                         </div>
                     </div>
-
+                    <div class="d-flex justify-content-end">
+                        <a href="/nilai-siswa" class="btn btn-danger mt-4 mb-4 me-2">Kembali</a>
+                        <button type="submit" class="btn btn-info mt-4 mb-4">Submit</button>
+                    </div>
                 </div>
             </div>
-            <div class="card mt-3">
+            {{-- <div class="card mt-3">
                 <div class="card-header pb-0 px-3">
                     <h6 class="mb-0">Input Nilai Siswa</h6>
                 </div>
@@ -137,13 +141,10 @@
                                 </table>
                             </div>
                         </div>
-                        <div class="d-flex justify-content-end">
-                            <a href="/presensi" class="btn btn-danger mt-4 mb-4 me-2">Kembali</a>
-                            <button type="submit" class="btn btn-info mt-4 mb-4">Submit</button>
-                        </div>
+
                     </form>
                 </div>
-            </div>
+            </div> --}}
         </form>
     </div>
 @endsection
