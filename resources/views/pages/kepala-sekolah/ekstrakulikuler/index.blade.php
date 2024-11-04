@@ -17,7 +17,10 @@
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Ekstrakulikuler</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Hari</th>
+<<<<<<< HEAD
                                     <th class="text-uppercase text-xs font-weight-bolder">Jam</th>
+=======
+>>>>>>> julio
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -37,15 +40,20 @@
                                                     <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
                                                 </div>
                                             </div>
+<<<<<<< HEAD
                                         </td>
                                         <td>
                                         <div class="d-flex px-2 py-1">
+=======
+                                            <div class="d-flex px-2 py-1">
+>>>>>>> julio
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $item->hari }}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
+<<<<<<< HEAD
                                         <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $item->jam }}</h6>
@@ -53,6 +61,8 @@
                                             </div>
                                         </td>
                                         <td>
+=======
+>>>>>>> julio
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <a href="/ekstrakulikuler/{{ $item->id }}/edit">

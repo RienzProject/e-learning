@@ -17,7 +17,10 @@
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Nama Siswa</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
+<<<<<<< HEAD
                                     <th class="text-uppercase text-xs font-weight-bolder">Jenis Kelamin</th>
+=======
+>>>>>>> julio
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -38,6 +41,7 @@
                                                 </div>
                                             </div>
                                         </td>
+<<<<<<< HEAD
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
@@ -45,6 +49,8 @@
                                                 </div>
                                             </div>
                                         </td>
+=======
+>>>>>>> julio
                                         @if($item->kelas_semester_id == null)
                                             <td>
                                                 <div class="d-flex px-2 py-1">
