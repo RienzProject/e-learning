@@ -48,7 +48,7 @@
             <span class="nav-link-text ms-1">Ekstrakulikuler Siswa</span>
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link {{ (Request::is('mata-pelajaran') ? 'active' : '') }} " href="{{ url('mata-pelajaran') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
@@ -57,7 +57,7 @@
             </div>
             <span class="nav-link-text ms-1">Mata Pelajaran</span>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('jadwal-kelas') ? 'active' : '') }} " href="{{ url('jadwal-kelas') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -81,7 +81,7 @@
             <span class="nav-link-text ms-1">Kelola Ruang Presensi</span>
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link {{ (Request::is('presensi') ? 'active' : '') }} " href="{{ url('presensi') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16">
@@ -91,8 +91,8 @@
             </div>
             <span class="nav-link-text ms-1">Presensi</span>
         </a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a class="nav-link {{ (Request::is('upload-tugas') ? 'active' : '') }} " href="{{ url('upload-tugas') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
@@ -102,8 +102,8 @@
             </div>
             <span class="nav-link-text ms-1">Upload Tugas</span>
         </a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a class="nav-link {{ (Request::is('capaian-kompetensi') ? 'active' : '') }} " href="{{ url('capaian-kompetensi') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
@@ -112,8 +112,8 @@
             </div>
             <span class="nav-link-text ms-1">Capaian Kompetensi</span>
         </a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a class="nav-link {{ (Request::is('kenaikan-kelas') ? 'active' : '') }} " href="{{ url('kenaikan-kelas') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-up" viewBox="0 0 16 16">
@@ -122,7 +122,7 @@
             </div>
             <span class="nav-link-text ms-1">Kenaikan Kelas</span>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('rapor-siswa') ? 'active' : '') }} " href="{{ url('rapor-siswa') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -134,7 +134,7 @@
             <span class="nav-link-text ms-1">Rapor Siswa</span>
         </a>
       </li>
-      <li class="nav-item mt-2">
+      <!-- <li class="nav-item mt-2">
         <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Example pages</h6>
       </li>
       <li class="nav-item">
@@ -316,7 +316,7 @@
           </div>
           <span class="nav-link-text ms-1">Sign Up</span>
         </a>
-      </li>
+      </li> -->
     </ul>
   </div>
 </aside>
