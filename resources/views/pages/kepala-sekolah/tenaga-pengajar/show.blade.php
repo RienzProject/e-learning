@@ -46,6 +46,13 @@
                                     value="{{ $data->agama }}" readonly>
                             </div>
                         </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="gender" class="form-control-label">Jenis Kelamin</label>
+                                <input class="form-control" type="text" placeholder="Masukkan Agama" name="gender"
+                                    value="{{ $data->gender }}" readonly>
+                            </div>
+                        </div>
                         @if ($data->waliKelas)
                             <div class="col-md-12">
                                 <div class="form-group">

@@ -24,13 +24,15 @@
                                     name="nama" required>
                             </div>
                             <div class="form-group">
-                                <label for="jenis" class="form-control-label">Jenis Mata Pelajaran <span
-                                        class="text-danger">*</span></label>
-                                <select name="jenis" id="" class="form-select">
-                                    <option value="0" selected disabled>Pilih Jenis Mata Pelajaran</option>
-                                    <option value="Mata Pelajaran">Mata Pelajaran</option>
-                                    <option value="Muatan Pelajaran">Muatan Pelajaran</option>
-                                </select>
+                                <label>Pilih Jenis Mata Pelajaran:</label>
+                                <div class="form-check">
+                                    <input type="radio" name="jenis" value="Mata Pelajaran" id="mataPelajaran" class="form-check-input">
+                                    <label for="mataPelajaran" class="form-check-label">Mata Pelajaran</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" name="jenis" value="Muatan Pelajaran" id="muatanPelajaran" class="form-check-input">
+                                    <label for="muatanPelajaran" class="form-check-label">Muatan Pelajaran</label>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="user_id" class="form-control-label">Guru Pengampu <span class="text-danger">*</span></label>

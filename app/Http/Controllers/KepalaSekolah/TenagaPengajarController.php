@@ -43,6 +43,7 @@ class TenagaPengajarController extends Controller
             $user->tanggal_lahir = $request->tanggal_lahir;
             $user->alamat = $request->alamat;
             $user->agama = $request->agama;
+            $user->gender = $request->gender;
             $user->role = $jabatan;
 
             $user->save();
@@ -63,6 +64,7 @@ class TenagaPengajarController extends Controller
             $user->tanggal_lahir = $request->tanggal_lahir;
             $user->alamat = $request->alamat;
             $user->agama = $request->agama;
+            $user->gender = $request->gender;
             $user->role = $jabatan;
 
             $user->save();
@@ -108,6 +110,7 @@ class TenagaPengajarController extends Controller
             $user->tanggal_lahir = $request->tanggal_lahir;
             $user->alamat = $request->alamat;
             $user->agama = $request->agama;
+            $user->gender = $request->gender;
 
             $user->save();
 
@@ -126,6 +129,7 @@ class TenagaPengajarController extends Controller
             $user->tanggal_lahir = $request->tanggal_lahir;
             $user->alamat = $request->alamat;
             $user->agama = $request->agama;
+            $user->gender = $request->gender;
 
             $user->save();
         }

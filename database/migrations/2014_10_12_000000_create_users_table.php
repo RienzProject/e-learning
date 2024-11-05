@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->date('tanggal_lahir');
             $table->string('alamat');
             $table->string('agama');
+            $table->string('gender');
             $table->string('foto')->nullable();
             $table->string('role');
             $table->rememberToken();

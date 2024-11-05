@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
             'agama' => 'Kristen',
+            'gender' => 'Laki - Laki',
             'role' => 'Kepala Sekolah'
         ]);
 
@@ -51,6 +52,7 @@ class DatabaseSeeder extends Seeder
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
             'agama' => 'Islam',
+            'gender' => 'Laki - Laki',
             'role' => 'Wali Kelas'
         ]);
 

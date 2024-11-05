@@ -58,7 +58,7 @@
             <span class="nav-link-text ms-1">Mata Pelajaran</span>
         </a>
       </li> -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link {{ (Request::is('jadwal-kelas') ? 'active' : '') }} " href="{{ url('jadwal-kelas') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
@@ -68,7 +68,7 @@
             </div>
             <span class="nav-link-text ms-1">Jadwal Kelas</span>
         </a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link {{ (Request::is('kelola-ruang-presensi') ? 'active' : '') }} " href="{{ url('kelola-ruang-presensi') }}">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

@@ -90,6 +90,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-control-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                            <div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="jenisKelaminLaki" name="gender" value="Laki-Laki" required>
+                                    <label class="form-check-label" for="jenisKelaminLaki">Laki-Laki</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="jenisKelaminPerempuan" name="gender" value="Perempuan">
+                                    <label class="form-check-label" for="jenisKelaminPerempuan">Perempuan</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="pt-3 pb-2">
                         <h6 class="mb-0">Data Akun Login</h6>
                     </div>

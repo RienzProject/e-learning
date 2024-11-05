@@ -79,6 +79,10 @@
                     <strong class="text-dark" style="width: 150px;">Agama</strong>
                     <span>: &nbsp; {{ $user->agama }}</span>
                 </li>
+                <li class="list-group-item border-0 ps-0 text-sm biodata-item d-flex">
+                    <strong class="text-dark" style="width: 150px;">Gender</strong>
+                    <span>: &nbsp; {{ $user->gender }}</span>
+                </li>
             </ul>
         </div>
     </div>

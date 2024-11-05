@@ -14,24 +14,17 @@
                         <table id="myTable" class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">NIP</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Nama Tenaga Pengajar</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Jabatan</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Jenis Kelamin</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data as $index => $item)
                                     <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $index + 1 }}</h6>
-                                                </div>
-                                            </div>
-                                        </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
@@ -54,6 +47,13 @@
                                                     @else
                                                         -
                                                     @endif
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    {{ $item->role }}
                                                 </div>
                                             </div>
                                         </td>
