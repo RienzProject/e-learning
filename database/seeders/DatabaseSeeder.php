@@ -21,10 +21,10 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         DB::table('users')->insert([
-            'name' => 'Ezra Yosafat Hutajulu',
+            'name' => 'Nova Sari Padatuan',
             'NIP' => '197505261998072002',
-            'username' => 'ezra',
-            'password' => Hash::make('ezra123'),
+            'username' => 'nova',
+            'password' => Hash::make('novasari'),
             'tempat_lahir' => 'Denpasar',
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',

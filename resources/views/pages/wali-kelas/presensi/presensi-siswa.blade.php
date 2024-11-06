@@ -92,7 +92,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <a href="/presensi" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
+                        <a href="/kelola-ruang-presensi" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
                         <button type="submit" class="btn bg-gradient-info btn-md mt-4 mb-4">{{ 'Submit' }}</button>
                     </div>
                 </form>
