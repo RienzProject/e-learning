@@ -11,49 +11,33 @@
                 <div class="card-header pb-0 px-3">
                     <h6 class="mb-0">Jenis Tugas</h6>
                 </div>
-                <div class="card-body pt-4 p-3">
+                <div class="card-body pt- p-3">
                     <div class="table-responsive p-0">
                         <table class="table align-items-center mb-0">
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <h6 class="mb-0 text-sm">Jenis Nilai</h6>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-0 text-sm">: {{ $uploadTugas->jenis_nilai }}</h6>
-                                    </td>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
+                                    <strong class="text-dark" style="width: 150px;">Jenis Nilai</strong>
+                                    <span>: &nbsp; {{ $uploadTugas->jenis_nilai }}</span>
+                                </li>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <h6 class="mb-0 text-sm">Nama Tugas</h6>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-0 text-sm">: {{ $uploadTugas->nama_tugas }}</h6>
-                                    </td>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
+                                    <strong class="text-dark" style="width: 150px;">Nama Tugas</strong>
+                                    <span>: &nbsp; {{ $uploadTugas->nama_tugas }}</span>
+                                </li>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <h6 class="mb-0 text-sm">Tanggal Penilaian</h6>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-0 text-sm">: {{ $uploadTugas->tanggal_penilaian }}</h6>
-                                    </td>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
+                                    <strong class="text-dark" style="width: 150px;">Tanggal penilaian</strong>
+                                    <span>: &nbsp; {{ $uploadTugas->tanggal_penilaian }}</span>
+                                </li>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <div class="d-flex px-2 py-1">
-                                            <h6 class="mb-0 text-sm">Mata Pelajaran</h6>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <h6 class="mb-0 text-sm">: {{ $uploadTugas->mataPelajaran->nama }}</h6>
-                                    </td>
+                                <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
+                                    <strong class="text-dark" style="width: 150px;">Mata Pelajaran</strong>
+                                    <span>: &nbsp; {{ $uploadTugas->mataPelajaran->nama }}</span>
+                                </li>
                                 </tr>
                             </tbody>
                         </table>
