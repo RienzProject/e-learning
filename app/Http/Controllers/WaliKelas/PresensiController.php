@@ -67,7 +67,7 @@ class PresensiController extends Controller
             return response()->json(['error' => 'Ruang presensi tidak ditemukan atau tidak dimiliki oleh user saat ini.'], 404);
         }
 
-        return redirect('/presensi')->with('success', 'Presensi berhasil disimpan.');
+        return redirect()->back()->with('success', 'Presensi berhasil disimpan.');
     }
 
     /**

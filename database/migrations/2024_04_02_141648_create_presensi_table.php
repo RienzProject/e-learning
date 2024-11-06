@@ -17,8 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('ruang_presensi_id')->constrained('ruang_presensi')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->enum('status_presensi', ['Hadir', 'Izin', 'Sakit', 'Tanpa Keterangan'])->default('Hadir');
-            $table->string('catatan')->nullable();
+            $table->enum('status_presensi', ['Hadir', 'Izin', 'Sakit', 'Tanpa Keterangan']);
             $table->timestamps();
         });
     }
