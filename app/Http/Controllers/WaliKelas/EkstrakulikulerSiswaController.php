@@ -60,7 +60,7 @@ class EkstrakulikulerSiswaController extends Controller
     {
         $data = EkstrakulikulerSiswa::where('ekstrakulikuler_id', $id)->get();
         $ekstrakulikuler = Ekstrakulikuler::find($id);
-        
+
         return view('pages.wali-kelas.ekstrakulikuler-siswa.show', compact('data', 'ekstrakulikuler'));
     }
 
@@ -74,12 +74,12 @@ class EkstrakulikulerSiswaController extends Controller
     {
         $user = Auth::user();
         $waliKelas = WaliKelas::where('user_id', $user->id)->first();
-        
+
         $ekstrakulikuler = Ekstrakulikuler::find($id);
         $data = Siswa::whereHas('kelasSemester.kelas', function ($query) use ($waliKelas) {
             $query->where('id', $waliKelas->kelas_id);
         })->whereDoesntHave('ekstrakulikuler')->get();
-        
+
         return view('pages.wali-kelas.ekstrakulikuler-siswa.edit', compact('data', 'ekstrakulikuler'));
     }
 
@@ -92,7 +92,7 @@ class EkstrakulikulerSiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
     }
 
     /**
@@ -103,17 +103,21 @@ class EkstrakulikulerSiswaController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $ekstrakulikulerSiswa = EkstrakulikulerSiswa::where('siswa_id', $request->siswa_id)->first();
-        $ekstrakulikulerSiswa->predikat = null;
-        $ekstrakulikulerSiswa->keterangan = null;
-        $ekstrakulikulerSiswa->save();
+        $ekstrakulikulerSiswa = EkstrakulikulerSiswa::where('siswa_id', $request->siswa_id)
+            ->where('ekstrakulikuler_id', $id)
+            ->first();
 
-        return redirect('/ekstrakulikuler-siswa/' . $id . '/input-catatan-siswa');
+        if ($ekstrakulikulerSiswa) {
+            $ekstrakulikulerSiswa->delete();
+        }
+
+        return redirect('/ekstrakulikuler-siswa/' . $id)
+            ->with('success', 'Siswa berhasil dihapus dari ekstrakurikuler.');
     }
 
     public function pageCatatanSiswa($id) {
         $data = EkstrakulikulerSiswa::find($id);
-        
+
         return view('pages.wali-kelas.ekstrakulikuler-siswa.input-catatan-siswa', compact('data'));
     }
 
