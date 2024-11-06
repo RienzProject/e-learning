@@ -38,10 +38,11 @@ class KelolaRuangPresensiController extends Controller
     public function create()
     {
         $user = Auth::user();
+        $today = date('Y-m-d');
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
         $semester = KelasSemester::where('status', '=', 'Aktif')->where('kelas_id', $kelasId)->get();
 
-        return view('pages.wali-kelas.kelola-ruang-presensi.create', compact('semester'));
+        return view('pages.wali-kelas.kelola-ruang-presensi.create', compact('semester', 'today'));
     }
 
     /**
@@ -53,14 +54,32 @@ class KelolaRuangPresensiController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+
+        $today = Carbon::today();
+
+        $tanggalPresensi = Carbon::parse($request->tanggal_presensi);
+
+        if ($tanggalPresensi->gt($today)) {
+            return redirect()->back()->with('error', 'Tanggal presensi tidak boleh lebih dari hari ini.');
+        }
+
+        $existingRuangPresensi = RuangPresensi::where('kelas_semester_id', $request->semester_id)
+            ->where('tanggal_presensi', $request->tanggal_presensi)
+            ->exists();
+
+        if ($existingRuangPresensi) {
+            return redirect()->back()->with('error', 'Presensi sudah dibuat untuk tanggal tersebut.');
+        }
+
         $ruangPresensi = new RuangPresensi();
         $ruangPresensi->kelas_semester_id = $request->semester_id;
         $ruangPresensi->user_id = $user->id;
         $ruangPresensi->tanggal_presensi = $request->tanggal_presensi;
         $ruangPresensi->save();
 
-        return redirect('/kelola-ruang-presensi');
+        return redirect()->back()->with('success', 'Ruang presensi berhasil dibuat.');
     }
+
 
     /**
      * Display the specified resource.
