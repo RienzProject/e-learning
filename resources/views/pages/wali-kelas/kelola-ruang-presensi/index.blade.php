@@ -40,7 +40,7 @@
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
+                                                {{-- <div class="d-flex flex-column justify-content-center">
                                                     <a href="/kelola-ruang-presensi/{{ $item->id }}/edit">
                                                         <button type="button" class="btn bg-gradient-warning">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16"
@@ -54,7 +54,7 @@
                                                             Edit
                                                         </button>
                                                     </a>
-                                                </div>
+                                                </div> --}}
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
                                                     <form action="/kelola-ruang-presensi/{{ $item->id }}" method="POST"
                                                         role="form text-left">
