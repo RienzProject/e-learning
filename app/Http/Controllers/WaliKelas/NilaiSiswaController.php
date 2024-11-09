@@ -112,9 +112,41 @@ class NilaiSiswaController extends Controller
                     ],
                     ['nilai' => $request->nilai[$index]]
                 );
+
+                $this->hitungNilaiAkhir($siswaMataPelajaran);
             }
         }
 
         return redirect()->back()->with('success', 'Nilai berhasil disimpan.');
+    }
+
+    private function hitungNilaiAkhir(SiswaMataPelajaran $siswaMataPelajaran)
+    {
+        $nilaiSiswa = $siswaMataPelajaran->nilaiSiswa;
+
+        if ($nilaiSiswa->isNotEmpty()) {
+            $totalNilai = 0;
+            $jumlahNilai = 0;
+
+            foreach ($nilaiSiswa as $nilai) {
+                $uploadTugas = $nilai->uploadTugas;
+
+                if ($uploadTugas && $uploadTugas->jenis_nilai == 'UAS') {
+                    $totalNilai += $nilai->nilai * 2;
+                } else {
+                    $totalNilai += $nilai->nilai;
+                }
+
+                $jumlahNilai++;
+            }
+
+            $nilaiAkhir = $totalNilai / $jumlahNilai;
+
+            $siswaMataPelajaran->nilai_akhir = $nilaiAkhir;
+            $siswaMataPelajaran->save();
+        } else {
+            $siswaMataPelajaran->nilai_akhir = 0;
+            $siswaMataPelajaran->save();
+        }
     }
 }

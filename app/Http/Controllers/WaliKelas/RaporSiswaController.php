@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\KelasSemester;
 use App\Models\Rapor;
 use App\Models\Siswa;
+use App\Models\SiswaMataPelajaran;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,11 +23,10 @@ class RaporSiswaController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
-        $data = Siswa::where('kelas_semester_sebelumnya_id', $kelasId)
-            ->whereHas('rapor', function ($query) {
-                $query->where('status_rapor', 'Divalidasi');
-            })->get();
+        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
+        $siswa = Siswa::whereHas('kelasSemester', function ($query) use ($kelasId) {
+            $query->where('kelas_id', '=', $kelasId);
+        })->get();
         // dd($data);
         // $data = Siswa::whereHas('kelasSemester', function($query) use ($kelasId) {
         //     $query->where('status', 'Dibuka');
@@ -37,7 +37,7 @@ class RaporSiswaController extends Controller
         // })->get();
         // dd($data);
 
-        return view('pages.wali-kelas.rapor-siswa.index', compact('data'));
+        return view('pages.wali-kelas.rapor-siswa.index', compact('siswa'));
     }
 
     /**
@@ -69,7 +69,31 @@ class RaporSiswaController extends Controller
      */
     public function show($id)
     {
-        //
+        $siswa = Siswa::findOrFail($id);
+
+        $siswaMataPelajaran = SiswaMataPelajaran::with(['mataPelajaran', 'nilaiSiswa' => function ($query) use ($id) {
+            $query->where('upload_tugas_id', $id);
+        }])->where('siswa_id', $id)->get();
+
+        $totalNilaiAkhir = 0;
+        $jumlahMataPelajaran = 0;
+
+        foreach ($siswaMataPelajaran as $mapel) {
+            if ($mapel->nilai_akhir !== null) {
+                $totalNilaiAkhir += $mapel->nilai_akhir;
+                $jumlahMataPelajaran++;
+            }
+        }
+
+        if ($jumlahMataPelajaran > 0) {
+            $nilaiRapor = $totalNilaiAkhir / $jumlahMataPelajaran;
+        } else {
+            $nilaiRapor = 0;
+        }
+
+        $statusNaikKelas = ($nilaiRapor >= 78) ? 'Naik Kelas' : 'Tidak Naik Kelas';
+
+        return view('pages.wali-kelas.rapor-siswa.buat-rapor', compact('siswa', 'siswaMataPelajaran', 'nilaiRapor', 'statusNaikKelas'));
     }
 
     /**

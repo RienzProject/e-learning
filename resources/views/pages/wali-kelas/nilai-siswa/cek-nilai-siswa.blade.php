@@ -16,28 +16,30 @@
                         <table class="table align-items-center mb-0">
                             <tbody>
                                 <tr>
-                                <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
-                                    <strong class="text-dark" style="width: 150px;">Jenis Nilai</strong>
-                                    <span>: &nbsp; {{ $uploadTugas->jenis_nilai }}</span>
-                                </li>
+                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
+                                        <strong class="text-dark" style="width: 150px;">Jenis Nilai</strong>
+                                        <span>: &nbsp; {{ $uploadTugas->jenis_nilai }}</span>
+                                    </li>
                                 </tr>
                                 <tr>
-                                <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
-                                    <strong class="text-dark" style="width: 150px;">Nama Tugas</strong>
-                                    <span>: &nbsp; {{ $uploadTugas->nama_tugas }}</span>
-                                </li>
+                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
+                                        <strong class="text-dark" style="width: 150px;">Nama Tugas</strong>
+                                        <span>: &nbsp; {{ $uploadTugas->nama_tugas }}</span>
+                                    </li>
                                 </tr>
                                 <tr>
-                                <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
-                                    <strong class="text-dark" style="width: 150px;">Tanggal penilaian</strong>
-                                    <span>: &nbsp; {{ $uploadTugas->tanggal_penilaian }}</span>
-                                </li>
+                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
+                                        <strong class="text-dark" style="width: 150px;">Tanggal penilaian</strong>
+                                        <span>: &nbsp;
+                                            {{ \Carbon\Carbon::parse($uploadTugas->tanggal_penilaian)->isoFormat('D MMMM YYYY') }}
+                                        </span>
+                                    </li>
                                 </tr>
                                 <tr>
-                                <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
-                                    <strong class="text-dark" style="width: 150px;">Mata Pelajaran</strong>
-                                    <span>: &nbsp; {{ $uploadTugas->mataPelajaran->nama }}</span>
-                                </li>
+                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
+                                        <strong class="text-dark" style="width: 150px;">Mata Pelajaran</strong>
+                                        <span>: &nbsp; {{ $uploadTugas->mataPelajaran->nama }}</span>
+                                    </li>
                                 </tr>
                             </tbody>
                         </table>
