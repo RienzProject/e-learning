@@ -93,7 +93,7 @@
                                 <h5 class="mb-1 font-bolder">Ubah Password Akun</h5>
                             </div>
                             <div class="card-body px-3 py-2">
-                                <form action="/ubah-password" method="POST" role="form text-left">
+                                <form action="/ubah-password-kepala-sekolah" method="POST" role="form text-left">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">

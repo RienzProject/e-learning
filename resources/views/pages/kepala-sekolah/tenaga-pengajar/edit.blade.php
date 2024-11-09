@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label for="NIP" class="form-control-label">NIP</label>
                                 <input class="form-control" type="number" placeholder="Masukkan NIP" name="NIP"
-                                    value="{{ $data->NIP }}">
+                                    value="{{ $data->NIP }}" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -58,7 +58,7 @@
                                     <option value="Hindu">Hindu</option>
                                     <option value="Buddha">Buddha</option>
                                 </select>
-                            </div>    
+                            </div>
                         </div>
                         @if ($data->waliKelas)
                             <div class="col-md-12">
@@ -78,40 +78,29 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-md-6" id="kelas-section" style="display: none;">
-                            <div class="form-group">
-                                <label for="kelas_id" class="form-control-label">Kelas <span
-                                        class="text-danger">*</span></label>
-                                <select name="kelas_id" class="form-select">
-                                    <option value="" selected disabled>Pilih Kelas</option>
-                                    @foreach ($kelas as $item)
-                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="gender" class="form-control-label">Jenis Kelamin </label>
+                                <label for="gender" class="form-control-label">Jenis Kelamin</label>
                                 <select class="form-control" id="gender" name="gender" required>
                                     <option value="" disabled selected>{{ $data->gender }}</option>
                                     <option value="Laki - Laki">Laki - Laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
-                            </div>    
+                            </div>
                         </div>
+                    </div>
                     <div class="pt-3 pb-2">
                         <h6 class="mb-0">Data Akun Login</h6>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="username" class="form-control-label">Username</label>
                                 <input class="form-control" type="text" value="{{ $data->username }}"
                                     placeholder="Masukkan Username Untuk Login" name="username">
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="password" class="form-control-label">Ubah Password</label>
                                 <input class="form-control" type="password" placeholder="Masukkan Password Baru"

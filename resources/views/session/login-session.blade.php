@@ -24,16 +24,36 @@
                 @enderror
             </div>
             <label>Password</label>
-            <div class="mb-3">
+            <div class="mb-3 position-relative">
                 <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan Password" aria-label="Password" aria-describedby="password-addon">
+                <span class="position-absolute top-50 end-0 translate-middle-y me-3" onclick="togglePassword()" style="cursor: pointer;">
+                    <i class="fa fa-eye" id="togglePasswordIcon"></i>
+                </span>
                 @error('password')
                     <p class="text-danger text-xs mt-2">{{ $message }}</p>
                 @enderror
             </div>
+
             <div class="text-center">
                 <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Masuk</button>
             </div>
         </form>
+        
+        <script>
+            function togglePassword() {
+                const passwordField = document.getElementById("password");
+                const toggleIcon = document.getElementById("togglePasswordIcon");
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    toggleIcon.classList.remove("fa-eye");
+                    toggleIcon.classList.add("fa-eye-slash");
+                } else {
+                    passwordField.type = "password";
+                    toggleIcon.classList.remove("fa-eye-slash");
+                    toggleIcon.classList.add("fa-eye");
+                }
+            }
+        </script>
     </div>
 </div>
                         </div>

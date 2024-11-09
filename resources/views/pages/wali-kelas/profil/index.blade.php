@@ -133,21 +133,21 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Aksi Dihentikan',
-            text: '{{ session('error') }}',
-        });
-    </script>
-    @elseif
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'Pemberitahuan',
-            text: '{{ session('success') }}',
-        });
-    </script>
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Aksi Dihentikan',
+                text: '{{ session('error') }}',
+            });
+        </script>
+    @elseif (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Pemberitahuan',
+                text: '{{ session('success') }}',
+            });
+        </script>
     @endif
 @endsection
