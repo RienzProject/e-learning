@@ -71,6 +71,8 @@ class RaporSiswaController extends Controller
     {
         $siswa = Siswa::findOrFail($id);
 
+        $rapor = Rapor::where('siswa_id', $id)->first();
+
         $siswaMataPelajaran = SiswaMataPelajaran::with(['mataPelajaran', 'nilaiSiswa' => function ($query) use ($id) {
             $query->where('upload_tugas_id', $id);
         }])->where('siswa_id', $id)->get();
@@ -93,7 +95,45 @@ class RaporSiswaController extends Controller
 
         $statusNaikKelas = ($nilaiRapor >= 78) ? 'Naik Kelas' : 'Tidak Naik Kelas';
 
-        return view('pages.wali-kelas.rapor-siswa.buat-rapor', compact('siswa', 'siswaMataPelajaran', 'nilaiRapor', 'statusNaikKelas'));
+        return view('pages.wali-kelas.rapor-siswa.buat-rapor', compact('siswa', 'siswaMataPelajaran', 'nilaiRapor', 'statusNaikKelas', 'rapor'));
+    }
+
+    public function storeRapor($id)
+    {
+        $siswa = Siswa::find($id);
+
+        $siswaMataPelajaran = SiswaMataPelajaran::with(['mataPelajaran', 'nilaiSiswa' => function ($query) use ($id) {
+            $query->where('upload_tugas_id', $id);
+        }])->where('siswa_id', $id)->get();
+
+        $totalNilaiAkhir = 0;
+        $jumlahMataPelajaran = 0;
+
+        foreach ($siswaMataPelajaran as $mapel) {
+            if ($mapel->nilai_akhir !== null) {
+                $totalNilaiAkhir += $mapel->nilai_akhir;
+                $jumlahMataPelajaran++;
+            }
+        }
+
+        $nilaiRapor = 0;
+        if ($jumlahMataPelajaran > 0) {
+            $nilaiRapor = $totalNilaiAkhir / $jumlahMataPelajaran;
+        }
+
+        $statusNaikKelas = ($nilaiRapor >= 78) ? 'Naik Kelas' : 'Tidak Naik Kelas';
+
+        $kelasSemesterId = $siswa->kelasSemester()->latest()->first()->id;
+
+        $rapor = Rapor::create([
+            'siswa_id' => $siswa->id,
+            'kelas_semester_id' => $kelasSemesterId,
+            'status_rapor' => 'Divalidasi',
+            'status_siswa' => $statusNaikKelas,
+            'url_rapor' => null,
+        ]);
+
+        return redirect('/rapor-siswa');
     }
 
     /**

@@ -10,7 +10,7 @@
                 <div class="table-responsive p-0" style="overflow-x: hidden;">
                     <div class="row">
                         <!-- Kolom Kiri -->
-                        <div class="col-md-5">
+                        <div class="col-md-6">
                             <table class="table align-items-center mb-0">
                                 <tbody>
                                     <tr>
@@ -42,7 +42,7 @@
                         </div>
 
                         <!-- Kolom Kanan -->
-                        <div class="col-md-7">
+                        <div class="col-md-6">
                             <table class="table align-items-center mb-0">
                                 <tbody>
                                     <tr>
@@ -78,15 +78,6 @@
                     </div>
                 </div>
             </div>
-
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-                integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-            <script src="//cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#myTable').DataTable();
-                });
-            </script>
         </div>
 
         <br>
@@ -132,6 +123,15 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="d-flex justify-content-end mt-4">
+                    <a href="/rapor-siswa" class="btn btn-danger me-2">Kembali</a>
+                    @if (!$rapor)
+                        <form action="/buat-rapor-siswa/{{ $siswa->id }}}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-info">Validasi</button>
+                        </form>
+                    @endif
                 </div>
 
             </div>
