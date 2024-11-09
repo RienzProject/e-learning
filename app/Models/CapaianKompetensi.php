@@ -10,9 +10,9 @@ class CapaianKompetensi extends Model
     use HasFactory;
     protected $table = 'capaian_kompetensi';
     protected $primarykey = 'id';
-    protected $fillable = ['nilai_mata_pelajaran_id','catatan'];
+    protected $fillable = ['siswa_mata_pelajaran_id','catatan'];
 
-    public function nilaiMataPelajaran() {
-        return $this->belongsTo(NilaiMataPelajaran::class);
+    public function siswaMataPelajaran() {
+        return $this->belongsTo(SiswaMataPelajaran::class);
     }
 }

@@ -27,5 +27,10 @@ class SiswaMataPelajaran extends Model
     {
         return $this->hasMany(NilaiSiswa::class);
     }
+
+    public function capaianKompetensi()
+    {
+        return $this->hasOne(CapaianKompetensi::class);
+    }
 }
 

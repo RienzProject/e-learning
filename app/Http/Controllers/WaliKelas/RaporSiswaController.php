@@ -3,13 +3,17 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ekstrakulikuler;
+use App\Models\EkstrakulikulerSiswa;
 use App\Models\KelasSemester;
+use App\Models\Presensi;
 use App\Models\Rapor;
 use App\Models\Siswa;
 use App\Models\SiswaMataPelajaran;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 
@@ -69,13 +73,35 @@ class RaporSiswaController extends Controller
      */
     public function show($id)
     {
-        $siswa = Siswa::findOrFail($id);
+        $siswa = Siswa::with(['kelasSemester', 'presensi', 'ekstrakulikuler'])
+                  ->where('id', $id)->findOrFail($id);
 
         $rapor = Rapor::where('siswa_id', $id)->first();
 
         $siswaMataPelajaran = SiswaMataPelajaran::with(['mataPelajaran', 'nilaiSiswa' => function ($query) use ($id) {
             $query->where('upload_tugas_id', $id);
-        }])->where('siswa_id', $id)->get();
+        }, 'capaianKompetensi'])
+        ->where('siswa_id', $id)
+        ->get();
+
+        $ekstrakulikuler = EkstrakulikulerSiswa::with('ekstrakulikuler')
+        ->where('siswa_id', $id)
+        ->get();
+
+        $presensi = Presensi::where('siswa_id', $id)
+            ->select('status_presensi', DB::raw('count(*) as count'))
+            ->groupBy('status_presensi')
+            ->get();
+
+        $statuses = ['Sakit', 'Izin', 'Tanpa Keterangan'];
+
+        $presensiGrouped = collect();
+
+        foreach ($statuses as $status) {
+            $presensiGrouped->push(
+                $presensi->firstWhere('status_presensi', $status) ?? (object) ['status_presensi' => $status, 'count' => 0]
+            );
+        }
 
         $totalNilaiAkhir = 0;
         $jumlahMataPelajaran = 0;
@@ -95,7 +121,7 @@ class RaporSiswaController extends Controller
 
         $statusNaikKelas = ($nilaiRapor >= 78) ? 'Naik Kelas' : 'Tidak Naik Kelas';
 
-        return view('pages.wali-kelas.rapor-siswa.buat-rapor', compact('siswa', 'siswaMataPelajaran', 'nilaiRapor', 'statusNaikKelas', 'rapor'));
+        return view('pages.wali-kelas.rapor-siswa.buat-rapor', compact('siswa', 'siswaMataPelajaran', 'nilaiRapor', 'statusNaikKelas', 'rapor', 'ekstrakulikuler', 'presensiGrouped'));
     }
 
     public function storeRapor($id)

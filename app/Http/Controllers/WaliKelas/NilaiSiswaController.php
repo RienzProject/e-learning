@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\CapaianKompetensi;
 use App\Models\MataPelajaran;
 use App\Models\NilaiSiswa;
 use App\Models\Siswa;
@@ -11,6 +12,7 @@ use App\Models\UploadTugas;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class NilaiSiswaController extends Controller
 {
@@ -36,27 +38,36 @@ class NilaiSiswaController extends Controller
     {
         $user = Auth::user();
 
+        $mataPelajaranId = $request->mata_pelajaran_id;
+        $jenisNilai = $request->jenis_nilai;
+
+        if ($jenisNilai == 'UTS' || $jenisNilai == 'UAS') {
+            $existingTugasBySameTeacher = UploadTugas::where('mata_pelajaran_id', $mataPelajaranId)
+                                                      ->where('jenis_nilai', $jenisNilai)
+                                                      ->where('user_id', $user->id)
+                                                      ->exists();
+
+            if ($existingTugasBySameTeacher) {
+                return redirect()->back()->with('error', "Tugas $jenisNilai untuk mata pelajaran ini sudah Anda buat.");
+            }
+
+            // $existingTugasByOtherTeacher = UploadTugas::where('mata_pelajaran_id', $mataPelajaranId)
+            //                                           ->where('jenis_nilai', $jenisNilai)
+            //                                           ->where('user_id', '!=', $user->id)
+            //                                           ->exists();
+
+            // if ($existingTugasByOtherTeacher) {
+            // }
+        }
+
         $uploadTugas = new UploadTugas();
         $uploadTugas->user_id = $user->id;
-        $uploadTugas->mata_pelajaran_id = $request->mata_pelajaran_id;
-        $uploadTugas->jenis_nilai = $request->jenis_nilai;
+        $uploadTugas->mata_pelajaran_id = $mataPelajaranId;
+        $uploadTugas->jenis_nilai = $jenisNilai;
         $uploadTugas->nama_tugas = $request->nama_tugas;
         $uploadTugas->tanggal_penilaian = $request->tanggal_penilaian;
 
         $uploadTugas->save();
-
-        // foreach ($request->siswa_id as $index => $siswaId) {
-        //     $siswaMataPelajaran = SiswaMataPelajaran::where('siswa_id', $siswaId)->where('mata_pelajaran_id', $request->mata_pelajaran_id)->first();
-
-        //     if ($siswaMataPelajaran) {
-        //         $nilaiSiswa = new NilaiSiswa();
-        //         $nilaiSiswa->siswa_mata_pelajaran_id = $siswaMataPelajaran->id;
-        //         $nilaiSiswa->upload_tugas_id = $uploadTugas->id;
-        //         $nilaiSiswa->nilai = $request->nilai[$index];
-
-        //         $nilaiSiswa->save();
-        //     }
-        // }
 
         return redirect('/nilai-siswa');
     }
@@ -104,6 +115,14 @@ class NilaiSiswaController extends Controller
                 ->where('mata_pelajaran_id', $request->mata_pelajaran_id)
                 ->first();
 
+            if (!$siswaMataPelajaran) {
+                $siswaMataPelajaran = SiswaMataPelajaran::create([
+                    'siswa_id' => $siswaId,
+                    'mata_pelajaran_id' => $request->mata_pelajaran_id,
+                    'nilai_akhir' => 0,
+                ]);
+            }
+
             if ($siswaMataPelajaran) {
                 $nilaiSiswa = NilaiSiswa::updateOrCreate(
                     [
@@ -112,8 +131,8 @@ class NilaiSiswaController extends Controller
                     ],
                     ['nilai' => $request->nilai[$index]]
                 );
-
                 $this->hitungNilaiAkhir($siswaMataPelajaran);
+                $this->updateCapaianKompetensi($siswaMataPelajaran);
             }
         }
 
@@ -123,24 +142,23 @@ class NilaiSiswaController extends Controller
     private function hitungNilaiAkhir(SiswaMataPelajaran $siswaMataPelajaran)
     {
         $nilaiSiswa = $siswaMataPelajaran->nilaiSiswa;
-
         if ($nilaiSiswa->isNotEmpty()) {
             $totalNilai = 0;
-            $jumlahNilai = 0;
+            $jumlahNilaiBobot = 0;
 
             foreach ($nilaiSiswa as $nilai) {
                 $uploadTugas = $nilai->uploadTugas;
 
                 if ($uploadTugas && $uploadTugas->jenis_nilai == 'UAS') {
                     $totalNilai += $nilai->nilai * 2;
+                    $jumlahNilaiBobot += 2;
                 } else {
                     $totalNilai += $nilai->nilai;
+                    $jumlahNilaiBobot += 1;
                 }
-
-                $jumlahNilai++;
             }
 
-            $nilaiAkhir = $totalNilai / $jumlahNilai;
+            $nilaiAkhir = $totalNilai / $jumlahNilaiBobot;
 
             $siswaMataPelajaran->nilai_akhir = $nilaiAkhir;
             $siswaMataPelajaran->save();
@@ -148,5 +166,21 @@ class NilaiSiswaController extends Controller
             $siswaMataPelajaran->nilai_akhir = 0;
             $siswaMataPelajaran->save();
         }
+    }
+
+    private function updateCapaianKompetensi(SiswaMataPelajaran $siswaMataPelajaran)
+    {
+        $nilaiAkhir = $siswaMataPelajaran->nilai_akhir;
+
+        if ($nilaiAkhir >= 78) {
+            $catatan = $siswaMataPelajaran->siswa->nama . " sudah menunjukkan kemajuan yang luar biasa dalam memahami materi " . $siswaMataPelajaran->mataPelajaran->nama . ". ". $siswaMataPelajaran->siswa->nama ." telah menguasai konsep-konsep utama dengan baik. Pertahankan usaha ini dan terus belajar dengan semangat. Masa depan cerah menantimu jika tetap konsisten!";
+        } else {
+            $catatan = $siswaMataPelajaran->siswa->nama . " perlu lebih banyak berlatih di mata pelajaran " . $siswaMataPelajaran->mataPelajaran->nama . ". Walaupun hasilnya belum memuaskan, ini adalah kesempatan untuk belajar lebih banyak. Fokuskan usaha pada bagian yang sulit dan jangan ragu meminta bantuan. Teruslah berusaha, ". $siswaMataPelajaran->siswa->nama ." pasti bisa lebih baik!";
+        }
+
+        CapaianKompetensi::updateOrCreate(
+            ['siswa_mata_pelajaran_id' => $siswaMataPelajaran->id],
+            ['catatan' => $catatan]
+        );
     }
 }

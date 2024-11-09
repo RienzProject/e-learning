@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('capaian_kompetensi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('nilai_mata_pelajaran_id')->constrained('nilai_mata_pelajaran')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('siswa_mata_pelajaran_id')->constrained('siswa_mata_pelajaran')->cascadeOnUpdate()->cascadeOnDelete();
             $table->longText('catatan');
             $table->timestamps();
         });
