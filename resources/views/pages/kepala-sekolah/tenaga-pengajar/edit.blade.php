@@ -48,10 +48,17 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="agama" class="form-control-label">Agama</label>
-                                <input class="form-control" type="text" placeholder="Masukkan Agama" name="agama"
-                                    value="{{ $data->agama }}">
-                            </div>
+                                <label for="agama" class="form-control-label">Agama <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-control" id="agama" name="agama" required>
+                                    <option value="" disabled selected>{{ $data->agama }}</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Katolik">Katolik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha">Buddha</option>
+                                </select>
+                            </div>    
                         </div>
                         @if ($data->waliKelas)
                             <div class="col-md-12">
@@ -71,21 +78,28 @@
                             </div>
                         @endif
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="form-control-label">Jenis Kelamin <span class="text-danger">*</span></label>
-                            <div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jenisKelaminLaki" name="gender" value="Laki-Laki" required>
-                                    <label class="form-check-label" for="jenisKelaminLaki">Laki-Laki</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jenisKelaminPerempuan" name="gender" value="Perempuan">
-                                    <label class="form-check-label" for="jenisKelaminPerempuan">Perempuan</label>
-                                </div>
+                    <div class="col-md-6" id="kelas-section" style="display: none;">
+                            <div class="form-group">
+                                <label for="kelas_id" class="form-control-label">Kelas <span
+                                        class="text-danger">*</span></label>
+                                <select name="kelas_id" class="form-select">
+                                    <option value="" selected disabled>Pilih Kelas</option>
+                                    @foreach ($kelas as $item)
+                                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
-                    </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="gender" class="form-control-label">Jenis Kelamin </label>
+                                <select class="form-control" id="gender" name="gender" required>
+                                    <option value="" disabled selected>{{ $data->gender }}</option>
+                                    <option value="Laki - Laki">Laki - Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>    
+                        </div>
                     <div class="pt-3 pb-2">
                         <h6 class="mb-0">Data Akun Login</h6>
                     </div>

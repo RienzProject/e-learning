@@ -26,11 +26,11 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="TTL" class="form-control-label">Tempat, Tanggal Lahir</label>
-                                <input class="form-control" type="text" placeholder="Masukkan Tempat, Tanggal Lahir"
-                                    name="TTL" value="{{ $data->TTL }}" readonly>
-                            </div>
+                        <div class="form-group">
+                            <label for="tempat_tanggal_lahir" class="form-control-label">Tempat dan Tanggal Lahir</label>
+                            <input class="form-control" type="text" placeholder="Tempat dan Tanggal Lahir"
+                                name="tempat_tanggal_lahir" value="{{ $data->tempat_lahir }}, {{ $data->tanggal_lahir }}" readonly>
+                        </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -63,28 +63,8 @@
                             </div>
                         @endif
                     </div>
-                    <div class="pt-3 pb-2">
-                        <h6 class="mb-0">Data Akun Login</h6>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="username" class="form-control-label">Username</label>
-                                <input class="form-control" type="text" value="{{ $data->username }}"
-                                    placeholder="Masukkan Username Untuk Login" name="username" readonly>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="password" class="form-control-label">Ubah Password</label>
-                                <input class="form-control" type="password" placeholder="Tidak Ditampilkan"
-                                    name="password" readonly>
-                            </div>
-                        </div>
-                    </div>
                     <div class="d-flex justify-content-end">
                         <a href="/tenaga-pengajar" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
-                        <button type="submit" class="btn bg-gradient-info btn-md mt-4 mb-4">{{ 'Simpan' }}</button>
                     </div>
                 </form>
 
