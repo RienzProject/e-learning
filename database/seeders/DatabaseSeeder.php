@@ -43,18 +43,18 @@ class DatabaseSeeder extends Seeder
         //     'nama' => 'II (Dua)',
         // ]);
 
-        // DB::table('users')->insert([
-        //     'name' => 'Budi Setyo',
-        //     'NIP' => '198205172008012015',
-        //     'username' => 'budisetyo',
-        //     'password' => Hash::make('password'),
-        //     'tempat_lahir' => 'Denpasar',
-        //     'tanggal_lahir' => '1998-06-19',
-        //     'alamat' => 'Perumahan Denpasar No. 1',
-        //     'agama' => 'Islam',
-        //     'gender' => 'Laki - Laki',
-        //     'role' => 'Wali Kelas'
-        // ]);
+        DB::table('users')->insert([
+            'name' => 'Budi Setyo',
+            'NIP' => '198205172008012015',
+            'username' => 'budisetyo',
+            'password' => Hash::make('password'),
+            'tempat_lahir' => 'Denpasar',
+            'tanggal_lahir' => '1998-06-19',
+            'alamat' => 'Perumahan Denpasar No. 1',
+            'agama' => 'Islam',
+            'gender' => 'Laki - Laki',
+            'role' => 'Wali Kelas'
+        ]);
 
         // DB::table('wali_kelas')->insert([
         //     'user_id' => 2,
