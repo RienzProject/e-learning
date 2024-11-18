@@ -76,11 +76,10 @@
                                 </select>
                             </div>
                         </div>
-                        <!-- Input Kelas akan ditampilkan jika jabatan "Wali Kelas" dipilih -->
+                        <!-- Input Kelas untuk Wali Kelas -->
                         <div class="col-md-6" id="kelas-section" style="display: none;">
                             <div class="form-group">
-                                <label for="kelas_id" class="form-control-label">Kelas <span
-                                        class="text-danger">*</span></label>
+                                <label for="kelas_id" class="form-control-label">Kelas <span class="text-danger">*</span></label>
                                 <select name="kelas_id" class="form-select">
                                     <option value="" selected disabled>Pilih Kelas</option>
                                     @foreach ($kelas as $item)
@@ -89,6 +88,20 @@
                                 </select>
                             </div>
                         </div>
+                        <!-- Input Kelas untuk Guru -->
+                        <div class="col-md-6" id="checkbox-kelas-section" style="display: none;">
+                            <div class="form-group">
+                                <label class="form-control-label">Pilih Kelas <span class="text-danger">*</span></label>
+                                <div>
+                                    @foreach ($kelas as $item)
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="kelas_ids[]" value="{{ $item->id }}">
+                                            <label class="form-check-label">{{ $item->nama }}</label>
+                                        </div>
+                                    @endforeach
+                                </div>
+                        </div>
+                    </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
@@ -136,20 +149,22 @@
     </div>
 
     <script>
-        var roleSelect = document.getElementById('role-select');
-        var hiddenRole = document.getElementById('hidden-role');
-        var kelasSection = document.getElementById('kelas-section');
+    document.getElementById('role-select').addEventListener('change', function () {
+            const selectedRole = this.value;
+            const kelasSection = document.getElementById('kelas-section');
+            const checkboxKelasSection = document.getElementById('checkbox-kelas-section');
 
-        roleSelect.addEventListener('change', function() {
-            var selectedRole = this.value;
-            hiddenRole.value = selectedRole;
+            // Sembunyikan semua input kelas
+            kelasSection.style.display = 'none';
+            checkboxKelasSection.style.display = 'none';
 
+            // Tampilkan input sesuai pilihan
             if (selectedRole === 'Wali Kelas') {
                 kelasSection.style.display = 'block';
-            } else {
-                kelasSection.style.display = 'none';
+            } else if (selectedRole === 'Guru') {
+                checkboxKelasSection.style.display = 'block';
             }
-        });
+    });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (session('error'))

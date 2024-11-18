@@ -99,6 +99,7 @@ class SiswaController extends Controller
         $siswa->agama = $request->agama;
         $siswa->pendidikan_sebelumnya = $request->pendidikan_sebelumnya;
         $siswa->alamat = $request->alamat;
+        $siswa->foto = $request->foto;
         $siswa->save();
         
         $dataOrangTua = DataOrangTua::where('siswa_id', $siswa->id)->first();
