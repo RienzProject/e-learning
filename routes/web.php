@@ -7,6 +7,7 @@ use App\Http\Controllers\Guru\KelolaRuangPresensiGuruController;
 use App\Http\Controllers\Guru\MataPelajaranGuruController;
 use App\Http\Controllers\Guru\PresensiGuruController;
 use App\Http\Controllers\Guru\UploadTugasGuruController;
+use App\Http\Controllers\Guru\ProfilGuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
@@ -115,27 +116,35 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 
 	Route::group(['middleware' => 'role:Guru'], function () {
-		Route::get('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'index'])->name('mata-pelajaran-guru');
-		Route::get('/mata-pelajaran-guru/create', [MataPelajaranGuruController::class, 'create']);
-		Route::post('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'store']);
-		Route::get('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'show'])->name('mata-pelajaran-guru.show');
-		Route::get('/mata-pelajaran-guru/{id}/edit', [MataPelajaranGuruController::class, 'edit']);
-		Route::put('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'update']);
-		Route::delete('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'destroy']);
-		Route::get('/mata-pelajaran-guru/{siswaId}/input-nilai', [MataPelajaranGuruController::class, 'pageInputNilai']);
-		Route::post('/mata-pelajaran-guru/input-nilai', [MataPelajaranGuruController::class, 'inputNilaiStore']);
+		Route::get('/', [HomeController::class, 'home']);
+		Route::get('dashboard-guru', function () {
+			return view('pages.guru.dashboard-guru');
+		})->name('dashboard-guru');
 
-		Route::get('/jadwal-kelas-guru', [JadwalKelasGuruController::class, 'index'])->name('jadwal-kelas-guru');
-		Route::resource('/kelola-ruang-presensi-guru', KelolaRuangPresensiGuruController::class);
-		Route::resource('/presensi-guru', PresensiGuruController::class);
+		Route::get('/profil-guru', [ProfilGuruController::class, 'index']);
+		Route::post('/upload-foto', [ProfilGuruController::class, 'uploadFoto']);
+		Route::post('/ubah-password', [ProfilGuruController::class, 'ubahPassword']);
+		// Route::get('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'index'])->name('mata-pelajaran-guru');
+		// Route::get('/mata-pelajaran-guru/create', [MataPelajaranGuruController::class, 'create']);
+		// Route::post('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'store']);
+		// Route::get('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'show'])->name('mata-pelajaran-guru.show');
+		// Route::get('/mata-pelajaran-guru/{id}/edit', [MataPelajaranGuruController::class, 'edit']);
+		// Route::put('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'update']);
+		// Route::delete('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'destroy']);
+		// Route::get('/mata-pelajaran-guru/{siswaId}/input-nilai', [MataPelajaranGuruController::class, 'pageInputNilai']);
+		// Route::post('/mata-pelajaran-guru/input-nilai', [MataPelajaranGuruController::class, 'inputNilaiStore']);
 
-		Route::resource('/upload-tugas-guru', UploadTugasGuruController::class);
-		Route::post('/upload-tugas-guru/{id}/unduh-tugas', [UploadTugasGuruController::class, 'unduhTugas']);
+		// Route::get('/jadwal-kelas-guru', [JadwalKelasGuruController::class, 'index'])->name('jadwal-kelas-guru');
+		// Route::resource('/kelola-ruang-presensi-guru', KelolaRuangPresensiGuruController::class);
+		// Route::resource('/presensi-guru', PresensiGuruController::class);
 
-		Route::resource('/capaian-kompetensi-guru', CapaianKompetensiGuruController::class);
-		Route::get('/capaian-kompetensi-guru/{id}/input-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'pageCapaianKompetensi'])->name('page-input-capaian-kompetensi-guru');
-		Route::post('/capaian-kompetensi-guru/input-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'inputCapaianKompetensiStore']);
-		Route::get('/capaian-kompetensi-guru/{id}/show-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'pageShowCapaianKompetensi']);
+		// Route::resource('/upload-tugas-guru', UploadTugasGuruController::class);
+		// Route::post('/upload-tugas-guru/{id}/unduh-tugas', [UploadTugasGuruController::class, 'unduhTugas']);
+
+		// Route::resource('/capaian-kompetensi-guru', CapaianKompetensiGuruController::class);
+		// Route::get('/capaian-kompetensi-guru/{id}/input-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'pageCapaianKompetensi'])->name('page-input-capaian-kompetensi-guru');
+		// Route::post('/capaian-kompetensi-guru/input-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'inputCapaianKompetensiStore']);
+		// Route::get('/capaian-kompetensi-guru/{id}/show-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'pageShowCapaianKompetensi']);
 	});
 
 	Route::get('billing', function () {
