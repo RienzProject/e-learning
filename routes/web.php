@@ -8,6 +8,7 @@ use App\Http\Controllers\Guru\MataPelajaranGuruController;
 use App\Http\Controllers\Guru\PresensiGuruController;
 use App\Http\Controllers\Guru\UploadTugasGuruController;
 use App\Http\Controllers\Guru\ProfilGuruController;
+use App\Http\Controllers\Guru\SiswaController as GuruSiswaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
@@ -117,13 +118,16 @@ Route::group(['middleware' => ['auth']], function () {
 
 	Route::group(['middleware' => 'role:Guru'], function () {
 		Route::get('/', [HomeController::class, 'home']);
-		Route::get('dashboard-guru', function () {
+		Route::get('/dashboard-guru', function () {
 			return view('pages.guru.dashboard-guru');
 		})->name('dashboard-guru');
 
 		Route::get('/profil-guru', [ProfilGuruController::class, 'index']);
 		Route::post('/upload-foto', [ProfilGuruController::class, 'uploadFoto']);
 		Route::post('/ubah-password', [ProfilGuruController::class, 'ubahPassword']);
+        Route::get('/kelas-guru', [GuruSiswaController::class, 'index'])->name('kelas-guru');
+        Route::get('/kelas-guru/{id}', [GuruSiswaController::class, 'show'])->name('detail-kelas');
+        Route::get('/kelas-guru/siswa/{id}', [GuruSiswaController::class, 'detailSiswa'])->name('detail-kelas-siswa');
 		// Route::get('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'index'])->name('mata-pelajaran-guru');
 		// Route::get('/mata-pelajaran-guru/create', [MataPelajaranGuruController::class, 'create']);
 		// Route::post('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'store']);
