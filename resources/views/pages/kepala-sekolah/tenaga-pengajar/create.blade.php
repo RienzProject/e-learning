@@ -23,8 +23,8 @@
                             <div class="form-group">
                                 <label for="NIP" class="form-control-label">NIP <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control" type="number" min="0" placeholder="Masukkan NIP" name="NIP"
-                                    required>
+                                <input class="form-control" type="number" min="0" placeholder="Masukkan NIP"
+                                    name="NIP" required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -67,7 +67,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="role" class="form-control-label">Jabatan <span class="text-danger">*</span></label>
+                                <label for="role" class="form-control-label">Jabatan <span
+                                        class="text-danger">*</span></label>
                                 <select id="role-select" class="form-select" name="role" required>
                                     <option value="" selected disabled>Pilih Jabatan</option>
                                     <option value="Kepala Sekolah">Kepala Sekolah</option>
@@ -79,7 +80,8 @@
                         <!-- Input Kelas untuk Wali Kelas -->
                         <div class="col-md-6" id="kelas-section" style="display: none;">
                             <div class="form-group">
-                                <label for="kelas_id" class="form-control-label">Kelas <span class="text-danger">*</span></label>
+                                <label for="kelas_id" class="form-control-label">Kelas <span
+                                        class="text-danger">*</span></label>
                                 <select name="kelas_id" class="form-select">
                                     <option value="" selected disabled>Pilih Kelas</option>
                                     @foreach ($kelas as $item)
@@ -95,24 +97,27 @@
                                 <div>
                                     @foreach ($kelas as $item)
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="kelas_ids[]" value="{{ $item->id }}">
+                                            <input class="form-check-input" type="checkbox" name="kelas_id[]"
+                                                value="{{ $item->id }}">
                                             <label class="form-check-label">{{ $item->nama }}</label>
                                         </div>
                                     @endforeach
                                 </div>
+                            </div>
                         </div>
-                    </div>
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
                             <label class="form-control-label">Jenis Kelamin <span class="text-danger">*</span></label>
                             <div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jenisKelaminLaki" name="gender" value="Laki-Laki" required>
+                                    <input class="form-check-input" type="radio" id="jenisKelaminLaki" name="gender"
+                                        value="Laki-Laki" required>
                                     <label class="form-check-label" for="jenisKelaminLaki">Laki-Laki</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jenisKelaminPerempuan" name="gender" value="Perempuan">
+                                    <input class="form-check-input" type="radio" id="jenisKelaminPerempuan"
+                                        name="gender" value="Perempuan">
                                     <label class="form-check-label" for="jenisKelaminPerempuan">Perempuan</label>
                                 </div>
                             </div>
@@ -149,7 +154,7 @@
     </div>
 
     <script>
-    document.getElementById('role-select').addEventListener('change', function () {
+        document.getElementById('role-select').addEventListener('change', function() {
             const selectedRole = this.value;
             const kelasSection = document.getElementById('kelas-section');
             const checkboxKelasSection = document.getElementById('checkbox-kelas-section');
@@ -164,7 +169,7 @@
             } else if (selectedRole === 'Guru') {
                 checkboxKelasSection.style.display = 'block';
             }
-    });
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (session('error'))

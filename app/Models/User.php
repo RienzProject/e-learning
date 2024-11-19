@@ -49,9 +49,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public function waliKelas() {
         return $this->hasOne(WaliKelas::class);
+    }
+
+    public function guruKelas() {
+        return $this->hasMany(GuruKelas::class);
     }
 
     public function uploadTugas() {

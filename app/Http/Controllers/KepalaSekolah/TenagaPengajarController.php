@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\KepalaSekolah;
 
 use App\Http\Controllers\Controller;
+use App\Models\GuruKelas;
 use App\Models\Kelas;
 use App\Models\User;
 use App\Models\WaliKelas;
@@ -55,6 +56,31 @@ class TenagaPengajarController extends Controller
             $waliKelas->kelas_id = $request->kelas_id;
 
             $waliKelas->save();
+        }  elseif($jabatan == 'Guru') {
+            $existingClass = GuruKelas::where('kelas_id', $request->kelas_id)->first();
+
+            if ($existingClass) {
+                return redirect()->back()->with('error', 'Guru yang dipilih telah mempunyai kelas')->withInput();
+            }
+
+            $user->name = $request->name;
+            $user->NIP = $request->NIP;
+            $user->username = $request->username;
+            $user->password = Hash::make($request->password);
+            $user->tempat_lahir = $request->tempat_lahir;
+            $user->tanggal_lahir = $request->tanggal_lahir;
+            $user->alamat = $request->alamat;
+            $user->agama = $request->agama;
+            $user->gender = $request->gender;
+            $user->role = $jabatan;
+            $user->save();
+
+            foreach($request->kelas_id as $kelas_id) {
+                $guruKelas = new GuruKelas();
+                $guruKelas->user_id = $user->getKey();
+                $guruKelas->kelas_id = $kelas_id;
+                $guruKelas->save();
+            }
         } else {
             $user->name = $request->name;
             $user->NIP = $request->NIP;

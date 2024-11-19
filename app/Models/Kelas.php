@@ -16,6 +16,10 @@ class Kelas extends Model
         return $this->hasOne(WaliKelas::class);
     }
 
+    public function guru() {
+        return $this->hasOne(GuruKelas::class);
+    }
+
     public function kelasSemester() {
         return $this->belongsToMany(KelasSemester::class, 'kelas_semester', 'kelas_id', 'semester_id');
     }
@@ -23,7 +27,7 @@ class Kelas extends Model
     public function semester() {
         return $this->belongsToMany(Semester::class);
     }
-    
+
     public function mataPelajaran() {
         return $this->hasMany(MataPelajaran::class);
     }

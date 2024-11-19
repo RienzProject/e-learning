@@ -44,6 +44,10 @@
                                                 <div class="d-flex flex-column justify-content-center">
                                                     @if ($item->waliKelas)
                                                         {{ $item->waliKelas->kelas->nama }}
+                                                    @elseif($item->guruKelas)
+                                                        @foreach ($item->guruKelas as $guruKelas)
+                                                            {{ $guruKelas->kelas->nama }} <br>
+                                                        @endforeach
                                                     @else
                                                         -
                                                     @endif
@@ -60,7 +64,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    {{ $item->role }}
+                                                    {{ $item->gender }}
                                                 </div>
                                             </div>
                                         </td>
