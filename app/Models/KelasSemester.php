@@ -31,4 +31,13 @@ class KelasSemester extends Model
     public function ruangPresensi() {
         return $this->hasMany(RuangPresensi::class);
     }
+
+    public function mataPelajaran()
+    {
+        return $this->hasMany(MataPelajaran::class, 'kelas_id');
+    }
+
+    public function guruKelas() {
+        return $this->hasMany(GuruKelas::class, 'kelas_id');
+    }
 }

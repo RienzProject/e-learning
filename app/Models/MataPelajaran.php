@@ -11,7 +11,7 @@ class MataPelajaran extends Model
     protected $table = 'mata_pelajaran';
     protected $primarykey = 'id';
     protected $fillable = ['kelas_id', 'user_id', 'kode', 'nama', 'jenis'];
-    
+
     public function user() {
         return $this->belongsTo(User::class);
     }
@@ -38,5 +38,14 @@ class MataPelajaran extends Model
 
     public function siswa() {
         return $this->belongsToMany(Siswa::class);
+    }
+
+    public function kelasSemester()
+    {
+        return $this->belongsTo(KelasSemester::class, 'kelas_id');
+    }
+
+    public function guruKelas() {
+        return $this->hasMany(GuruKelas::class);
     }
 }

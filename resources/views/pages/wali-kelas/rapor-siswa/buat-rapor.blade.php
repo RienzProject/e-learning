@@ -105,7 +105,7 @@
                                     <td class="text-center align-middle">{{ $item->mataPelajaran->nama }}</td>
                                     <td class="text-center align-middle">{{ $item->nilai_akhir }}</td>
                                     <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">
-                                        {{ $item->capaianKompetensi->catatan }}
+                                        {{ $item->capaianKompetensi->catatan ?? '-' }}
                                     </td>
                                 </tr>
                             @endforeach

@@ -20,4 +20,9 @@ class GuruKelas extends Model
     public function kelas() {
         return $this->belongsTo(Kelas::class);
     }
+
+    public function kelasSemester()
+    {
+        return $this->belongsTo(KelasSemester::class, 'kelas_id');
+    }
 }

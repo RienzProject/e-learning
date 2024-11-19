@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\CapaianKompetensi;
+use App\Models\GuruKelas;
 use App\Models\Kategori;
+use App\Models\Kelas;
 use App\Models\KelasSemester;
 use App\Models\MataPelajaran;
 use App\Models\NilaiMataPelajaran;
+use App\Models\NilaiSiswa;
 use App\Models\Siswa;
 use App\Models\SiswaMataPelajaran;
 use App\Models\UploadTugas;
@@ -25,9 +29,13 @@ class MataPelajaranGuruController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $data = MataPelajaran::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) {
-            $query->where('status', 'Dibuka');
-        })->get();
+
+        $data = MataPelajaran::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) use ($user) {
+            $query->whereHas('guruKelas', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            });
+        })
+        ->get();
 
         return view('pages.guru.mata-pelajaran.index', compact('data'));
     }
@@ -39,7 +47,14 @@ class MataPelajaranGuruController extends Controller
      */
     public function create()
     {
-        // 
+        $user = Auth::user();
+        $mataPelajaran = MataPelajaran::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) use ($user) {
+            $query->whereHas('guruKelas', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            });
+        })
+        ->get();
+        return view('pages.guru.mata-pelajaran.create', compact('mataPelajaran'));
     }
 
     /**
@@ -50,7 +65,40 @@ class MataPelajaranGuruController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        $user = Auth::user();
+
+        $mataPelajaranId = $request->mata_pelajaran_id;
+        $jenisNilai = $request->jenis_nilai;
+
+        if ($jenisNilai == 'UTS' || $jenisNilai == 'UAS') {
+            $existingTugasBySameTeacher = UploadTugas::where('mata_pelajaran_id', $mataPelajaranId)
+                                                      ->where('jenis_nilai', $jenisNilai)
+                                                      ->where('user_id', $user->id)
+                                                      ->exists();
+
+            if ($existingTugasBySameTeacher) {
+                return redirect()->back()->with('error', "Tugas $jenisNilai untuk mata pelajaran ini sudah Anda buat.");
+            }
+
+            // $existingTugasByOtherTeacher = UploadTugas::where('mata_pelajaran_id', $mataPelajaranId)
+            //                                           ->where('jenis_nilai', $jenisNilai)
+            //                                           ->where('user_id', '!=', $user->id)
+            //                                           ->exists();
+
+            // if ($existingTugasByOtherTeacher) {
+            // }
+        }
+
+        $uploadTugas = new UploadTugas();
+        $uploadTugas->user_id = $user->id;
+        $uploadTugas->mata_pelajaran_id = $mataPelajaranId;
+        $uploadTugas->jenis_nilai = $jenisNilai;
+        $uploadTugas->nama_tugas = $request->nama_tugas;
+        $uploadTugas->tanggal_penilaian = $request->tanggal_penilaian;
+
+        $uploadTugas->save();
+
+        return redirect()->back()->with('success', 'Nilai berhasil disimpan.');
     }
 
     /**
@@ -63,9 +111,120 @@ class MataPelajaranGuruController extends Controller
     {
         $user = Auth::user();
         $mataPelajaran = MataPelajaran::find($id);
-        $data = SiswaMataPelajaran::where('mata_pelajaran_id', $id)->get();
+        $data = UploadTugas::where('mata_pelajaran_id', $id)->get();
 
         return view('pages.guru.mata-pelajaran.show', compact('data', 'mataPelajaran'));
+    }
+
+    public function detailInputNilai($id){
+        $uploadTugas = UploadTugas::findOrFail($id);
+
+        $siswaMataPelajaran = SiswaMataPelajaran::with(['siswa', 'nilaiSiswa' => function ($query) use ($id) {
+            $query->where('upload_tugas_id', $id);
+        }])->get();
+
+        $user = Auth::user();
+        $kelasId = GuruKelas::where('user_id', $user->id)->value('kelas_id');
+
+        $siswa = Siswa::whereHas('kelasSemester', function ($query) use ($kelasId) {
+            $query->where('kelas_id', $kelasId);
+        })->get();
+
+        $nilaiSiswaMap = [];
+        foreach ($siswaMataPelajaran as $siswaMataPelajaranItem) {
+            foreach ($siswaMataPelajaranItem->nilaiSiswa as $nilaiSiswa) {
+                $nilaiSiswaMap[$siswaMataPelajaranItem->siswa_id] = $nilaiSiswa->nilai;
+            }
+        }
+
+        return view('pages.guru.mata-pelajaran.input-nilai-tugas', compact('uploadTugas', 'siswa', 'nilaiSiswaMap'));
+    }
+
+    public function inputNilaiStoreGuru(Request $request)
+    {
+        $request->validate([
+            'upload_tugas_id' => 'required|exists:upload_tugas,id',
+            'siswa_id' => 'required|array',
+            'siswa_id.*' => 'exists:siswa,id',
+            'mata_pelajaran_id' => 'required|exists:mata_pelajaran,id',
+            'nilai' => 'required|array',
+            'nilai.*' => 'numeric',
+        ]);
+
+        $uploadTugas = UploadTugas::findOrFail($request->upload_tugas_id);
+
+        foreach ($request->siswa_id as $index => $siswaId) {
+            $siswaMataPelajaran = SiswaMataPelajaran::where('siswa_id', $siswaId)
+                ->where('mata_pelajaran_id', $request->mata_pelajaran_id)
+                ->first();
+
+            if (!$siswaMataPelajaran) {
+                $siswaMataPelajaran = SiswaMataPelajaran::create([
+                    'siswa_id' => $siswaId,
+                    'mata_pelajaran_id' => $request->mata_pelajaran_id,
+                    'nilai_akhir' => 0,
+                ]);
+            }
+
+            if ($siswaMataPelajaran) {
+                $nilaiSiswa = NilaiSiswa::updateOrCreate(
+                    [
+                        'siswa_mata_pelajaran_id' => $siswaMataPelajaran->id,
+                        'upload_tugas_id' => $uploadTugas->id,
+                    ],
+                    ['nilai' => $request->nilai[$index]]
+                );
+                $this->hitungNilaiAkhir($siswaMataPelajaran);
+                $this->updateCapaianKompetensi($siswaMataPelajaran);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Nilai berhasil disimpan.');
+    }
+
+    private function hitungNilaiAkhir(SiswaMataPelajaran $siswaMataPelajaran)
+    {
+        $nilaiSiswa = $siswaMataPelajaran->nilaiSiswa;
+        if ($nilaiSiswa->isNotEmpty()) {
+            $totalNilai = 0;
+            $jumlahNilaiBobot = 0;
+
+            foreach ($nilaiSiswa as $nilai) {
+                $uploadTugas = $nilai->uploadTugas;
+
+                if ($uploadTugas && $uploadTugas->jenis_nilai == 'UAS') {
+                    $totalNilai += $nilai->nilai * 2;
+                    $jumlahNilaiBobot += 2;
+                } else {
+                    $totalNilai += $nilai->nilai;
+                    $jumlahNilaiBobot += 1;
+                }
+            }
+
+            $nilaiAkhir = $totalNilai / $jumlahNilaiBobot;
+
+            $siswaMataPelajaran->nilai_akhir = $nilaiAkhir;
+            $siswaMataPelajaran->save();
+        } else {
+            $siswaMataPelajaran->nilai_akhir = 0;
+            $siswaMataPelajaran->save();
+        }
+    }
+
+    private function updateCapaianKompetensi(SiswaMataPelajaran $siswaMataPelajaran)
+    {
+        $nilaiAkhir = $siswaMataPelajaran->nilai_akhir;
+
+        if ($nilaiAkhir >= 78) {
+            $catatan = $siswaMataPelajaran->siswa->nama . " sudah menunjukkan kemajuan yang luar biasa dalam memahami materi " . $siswaMataPelajaran->mataPelajaran->nama . ". ". $siswaMataPelajaran->siswa->nama ." telah menguasai konsep-konsep utama dengan baik. Pertahankan usaha ini dan terus belajar dengan semangat. Masa depan cerah menantimu jika tetap konsisten!";
+        } else {
+            $catatan = $siswaMataPelajaran->siswa->nama . " perlu lebih banyak berlatih di mata pelajaran " . $siswaMataPelajaran->mataPelajaran->nama . ". Walaupun hasilnya belum memuaskan, ini adalah kesempatan untuk belajar lebih banyak. Fokuskan usaha pada bagian yang sulit dan jangan ragu meminta bantuan. Teruslah berusaha, ". $siswaMataPelajaran->siswa->nama ." pasti bisa lebih baik!";
+        }
+
+        CapaianKompetensi::updateOrCreate(
+            ['siswa_mata_pelajaran_id' => $siswaMataPelajaran->id],
+            ['catatan' => $catatan]
+        );
     }
 
     /**
@@ -76,7 +235,7 @@ class MataPelajaranGuruController extends Controller
      */
     public function edit($id)
     {
-        // 
+        //
     }
 
     /**
@@ -88,7 +247,7 @@ class MataPelajaranGuruController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // 
+        //
     }
 
     /**
@@ -99,7 +258,7 @@ class MataPelajaranGuruController extends Controller
      */
     public function destroy($id)
     {
-        // 
+        //
     }
 
     public function pageInputNilai($id)
