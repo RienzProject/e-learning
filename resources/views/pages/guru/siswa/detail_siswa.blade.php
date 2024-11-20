@@ -160,9 +160,9 @@
                             </div>
                         </div>
                     </div>
-                    {{-- <div class="d-flex justify-content-end">
-                        <a href="/siswa" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
-                    </div> --}}
+                    <div class="d-flex justify-content-end">
+                        <a href="javascript:history.back()" class="btn btn-danger mt-4 mb-4 me-2">Kembali</a>
+                    </div>
                 </form>
 
             </div>

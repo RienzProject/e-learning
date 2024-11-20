@@ -88,6 +88,9 @@
                         </script>
                     </div>
                 </div>
+                <div class="d-flex justify-content-end">
+                    <a href="{{ route('kelas-guru') }}" class="btn btn-danger mt-4 mb-4 me-2">Kembali</a>
+                </div>
             </div>
         </div>
     </div>

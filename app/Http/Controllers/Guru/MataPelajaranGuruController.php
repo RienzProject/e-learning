@@ -114,14 +114,14 @@ class MataPelajaranGuruController extends Controller
 
     public function detailInputNilai($id){
         $uploadTugas = UploadTugas::findOrFail($id);
+        $mataPelajaran = MataPelajaran::where('id', $uploadTugas->mata_pelajaran_id)->first();
 
         $siswaMataPelajaran = SiswaMataPelajaran::with(['siswa', 'nilaiSiswa' => function ($query) use ($id) {
             $query->where('upload_tugas_id', $id);
         }])->get();
 
         $user = Auth::user();
-        $kelasId = GuruKelas::where('user_id', $user->id)->value('kelas_id');
-
+        $kelasId = GuruKelas::where('kelas_id', $mataPelajaran->kelas_id)->value('kelas_id');
         $siswa = Siswa::whereHas('kelasSemester', function ($query) use ($kelasId) {
             $query->where('kelas_id', $kelasId);
         })->get();
