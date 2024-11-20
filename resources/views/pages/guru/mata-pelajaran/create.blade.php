@@ -76,7 +76,6 @@
                                         <div class="d-flex px-3 py-1">
                                             <select class="form-control" id="mata_pelajaran_id" name="mata_pelajaran_id"
                                                 required>
-                                                <option value="" disabled selected>Pilih Mata Pelajaran</option>
                                                 <option value="{{ $mataPelajaran->id }}">{{ $mataPelajaran->nama }}</option>
                                             </select>
                                         </div>
