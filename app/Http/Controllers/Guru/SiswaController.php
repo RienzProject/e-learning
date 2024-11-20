@@ -15,7 +15,7 @@ class SiswaController extends Controller
     {
         $user = Auth::user();
         $kelasId = GuruKelas::where('user_id', $user->id)->pluck('kelas_id');
-        $kelas = KelasSemester::whereIn('kelas_id', $kelasId)->get();
+        $kelas = KelasSemester::whereIn('kelas_id', $kelasId)->where('status', 'Aktif')->get();
 
         return view('pages.guru.siswa.index', compact('kelas'));
     }
