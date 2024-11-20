@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <div class="text-end">
-            <a href="{{ route('upload-tugas') }}">
+            <a href="{{ route('upload-tugas', $mataPelajaran->id) }}">
                 <button type="button" class="btn bg-gradient-info">Input Nilai Siswa</button>
             </a>
         </div>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a href="javascript:history.back()" class="btn btn-danger mt-4 mb-4 me-2">Kembali</a>
+                    <a href="{{ route('mata-pelajaran-guru') }}" class="btn btn-danger mt-4 mb-4 me-2">Kembali</a>
                 </div>
             </div>
         </div>

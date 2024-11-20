@@ -130,7 +130,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/kelas-guru/siswa/{id}', [GuruSiswaController::class, 'detailSiswa'])->name('detail-kelas-siswa');
         Route::get('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'index'])->name('mata-pelajaran-guru');
         Route::get('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'show'])->name('detail-mata-pelajaran');
-        Route::get('/mata-pelajaran-guru//upload-tugas', [MataPelajaranGuruController::class, 'create'])->name('upload-tugas');
+        Route::get('/mata-pelajaran-guru/upload-tugas/{id}', [MataPelajaranGuruController::class, 'create'])->name('upload-tugas');
         Route::post('/mata-pelajaran-guru/upload-tugas/store', [MataPelajaranGuruController::class, 'store'])->name('upload-tugas-store');
         Route::get('mata-pelajaran-guru/upload-nilai/{id}', [MataPelajaranGuruController::class, 'detailInputNilai'])->name('get-list-tugas-siswa');
         Route::post('mata-pelajaran-guru/upload-nilai/store', [MataPelajaranGuruController::class, 'inputNilaiStoreGuru'])->name('post-list-nilai-siswa');

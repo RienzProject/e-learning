@@ -42,7 +42,7 @@ class MataPelajaran extends Model
 
     public function kelasSemester()
     {
-        return $this->belongsTo(KelasSemester::class, 'kelas_id');
+        return $this->belongsTo(KelasSemester::class, 'kelas_id', 'kelas_id');
     }
 
     public function guruKelas() {

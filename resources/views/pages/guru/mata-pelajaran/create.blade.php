@@ -77,9 +77,7 @@
                                             <select class="form-control" id="mata_pelajaran_id" name="mata_pelajaran_id"
                                                 required>
                                                 <option value="" disabled selected>Pilih Mata Pelajaran</option>
-                                                @foreach ($mataPelajaran as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                                @endforeach
+                                                <option value="{{ $mataPelajaran->id }}">{{ $mataPelajaran->nama }}</option>
                                             </select>
                                         </div>
                                     </td>
@@ -88,7 +86,8 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <a href="javascript:history.back()" class="btn btn-danger mt-4 mb-4 me-2">Kembali</a>
+                        <a href="{{ route('detail-mata-pelajaran', $mataPelajaran->id) }}"
+                            class="btn btn-danger mt-4 mb-4 me-2">Kembali</a>
                         <button type="submit" class="btn btn-info mt-4 mb-4">Submit</button>
                     </div>
                 </div>

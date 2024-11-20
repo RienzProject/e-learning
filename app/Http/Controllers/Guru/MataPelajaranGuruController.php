@@ -31,11 +31,10 @@ class MataPelajaranGuruController extends Controller
         $user = Auth::user();
 
         $data = MataPelajaran::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) use ($user) {
-            $query->whereHas('guruKelas', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            });
+                $query->where('status', 'Aktif');
         })
         ->get();
+        // dd($data);
 
         return view('pages.guru.mata-pelajaran.index', compact('data'));
     }
@@ -45,15 +44,11 @@ class MataPelajaranGuruController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         $user = Auth::user();
-        $mataPelajaran = MataPelajaran::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) use ($user) {
-            $query->whereHas('guruKelas', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-            });
-        })
-        ->get();
+        $mataPelajaran = MataPelajaran::where('user_id', $user->id)->where('id', $id)->first();
+        // dd($mataPelajaran);
         return view('pages.guru.mata-pelajaran.create', compact('mataPelajaran'));
     }
 
@@ -68,6 +63,7 @@ class MataPelajaranGuruController extends Controller
         $user = Auth::user();
 
         $mataPelajaranId = $request->mata_pelajaran_id;
+        // dd($mataPelajaranId);
         $jenisNilai = $request->jenis_nilai;
 
         if ($jenisNilai == 'UTS' || $jenisNilai == 'UAS') {
