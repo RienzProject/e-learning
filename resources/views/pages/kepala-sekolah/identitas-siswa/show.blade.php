@@ -86,6 +86,18 @@
                                     placeholder="Masukkan Alamat Siswa" name="alamat" disabled>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <label for="foto">Foto siswa</label>
+                            <div class="form-group">
+                                @if ($data->foto)
+                                    <img src="{{ asset('storage/foto-siswa/' . $data->foto) }}" alt="profile_image"
+                                        class="border-radius-lg shadow-sm mt-3" width="150px" height="150px">
+                                @else
+                                    <img src="../assets/img/bruce-mars.jpg" alt="profile_image"
+                                        class="w-100 border-radius-lg shadow-sm">
+                                @endif
+                            </div>
+                        </div>
                     </div>
                     <h6 class="text-info fw-bold fs-5 mt-4">Data Orang Tua</h6>
                     <div class="row">

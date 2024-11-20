@@ -7,7 +7,7 @@
                 <h6 class="mb-0 fs-4">Tambah Data Siswa</h6>
             </div>
             <div class="card-body pt-4 p-3">
-                <form action="/identitas-siswa" method="POST" role="form text-left">
+                <form action="/identitas-siswa" method="POST" role="form text-left" enctype="multipart/form-data">
                     @csrf
                     <h6 class="text-info fw-bold fs-5">Identitas Siswa</h6>
                     <div class="row">
@@ -23,8 +23,8 @@
                             <div class="form-group">
                                 <label for="NISN" class="form-control-label">NISN <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control" type="number" placeholder="Masukkan NISN"
-                                    name="NISN" required>
+                                <input class="form-control" type="number" placeholder="Masukkan NISN" name="NISN"
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -102,18 +102,30 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label class="form-control-label">Jenis Kelamin <span class="text-danger">*</span></label>
-                            <div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jenisKelaminLaki" name="jenis_kelamin" value="Laki-Laki" required>
-                                    <label class="form-check-label" for="jenisKelaminLaki">Laki-Laki</label>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">Jenis Kelamin <span class="text-danger">*</span></label>
+                                <div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="jenisKelaminLaki"
+                                            name="jenis_kelamin" value="Laki-Laki" required>
+                                        <label class="form-check-label" for="jenisKelaminLaki">Laki-Laki</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="jenisKelaminPerempuan"
+                                            name="jenis_kelamin" value="Perempuan">
+                                        <label class="form-check-label" for="jenisKelaminPerempuan">Perempuan</label>
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jenisKelaminPerempuan" name="jenis_kelamin" value="Perempuan">
-                                    <label class="form-check-label" for="jenisKelaminPerempuan">Perempuan</label>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="foto">Upload foto siswa</label>
+                                <input type="file" class="form-control" accept=".png, .jpg, .jpeg" name="foto"
+                                    id="foto">
+                                <small class="mt-2 ms-2 text-danger">Catatan : Upload foto maksimal 2 MB</small>
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ use App\Models\KelasSemester;
 use App\Models\Rapor;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class IdentitasSiswaController extends Controller
 {
@@ -54,6 +55,12 @@ class IdentitasSiswaController extends Controller
         $siswa->agama = $request->agama;
         $siswa->pendidikan_sebelumnya = $request->pendidikan_sebelumnya;
         $siswa->alamat = $request->alamat;
+
+        $file = $request->file('foto');
+        $namaFile = time() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('public/foto-siswa', $namaFile);
+        $siswa->foto = $namaFile;
+
         $siswa->save();
 
         $dataOrangTua = new DataOrangTua();
@@ -119,6 +126,16 @@ class IdentitasSiswaController extends Controller
         $siswa->agama = $request->agama;
         $siswa->pendidikan_sebelumnya = $request->pendidikan_sebelumnya;
         $siswa->alamat = $request->alamat;
+
+        if ($siswa->foto) {
+            Storage::delete('public/foto-siswa/' . $siswa->foto);
+        }
+
+        $file = $request->file('foto');
+        $namaFile = time() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('public/foto-siswa', $namaFile);
+        $siswa->foto = $namaFile;
+
         $siswa->save();
 
         $dataOrangTua = DataOrangTua::where('siswa_id', $siswa->id)->first();

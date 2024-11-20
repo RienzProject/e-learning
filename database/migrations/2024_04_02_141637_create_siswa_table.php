@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('agama');
             $table->string('pendidikan_sebelumnya');
             $table->string('alamat');
+            $table->string('foto')->nullable();
             $table->timestamps();
         });
     }
