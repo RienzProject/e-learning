@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="col-6 mt-3">
-                <form action="/upload-foto-kepala-sekolah" method="POST" enctype="multipart/form-data">
+                <form action="/upload-foto-guru" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="foto">Upload Foto Profil</label>
@@ -93,7 +93,7 @@
                                 <h5 class="mb-1 font-bolder">Ubah Password Akun</h5>
                             </div>
                             <div class="card-body px-3 py-2">
-                                <form action="/ubah-password-kepala-sekolah" method="POST" role="form text-left">
+                                <form action="/ubah-password-guru" method="POST" role="form text-left">
                                     @csrf
                                     <div class="row">
                                         <div class="col-md-12">

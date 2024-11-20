@@ -97,7 +97,7 @@
                             <div class="form-group">
                                 <label for="username" class="form-control-label">Username</label>
                                 <input class="form-control" type="text" value="{{ $data->username }}"
-                                    placeholder="Masukkan Username Untuk Login" name="username">
+                                    placeholder="Masukkan Username Untuk Login" name="username" readonly>
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -58,7 +58,7 @@
               <span class="nav-link-text ms-1">Kelola Ruang Presensi</span>
           </a>
         </li> -->
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link {{ Request::is('presensi-guru') ? 'active' : '' }} "
                     href="{{ url('presensi-guru') }}">
                     <div
@@ -73,7 +73,7 @@
                     </div>
                     <span class="nav-link-text ms-1">Presensi</span>
                 </a>
-            </li>
+            </li> -->
             <!-- <li class="nav-item">
           <a class="nav-link {{ Request::is('upload-tugas-guru') ? 'active' : '' }} " href="{{ url('upload-tugas-guru') }}">
               <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">

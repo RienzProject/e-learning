@@ -30,8 +30,8 @@
                                     <label for="mataPelajaran" class="form-check-label">Mata Pelajaran</label>
                                 </div>
                                 <div class="form-check">
-                                    <input type="radio" name="jenis" value="Muatan Pelajaran" id="muatanPelajaran" class="form-check-input">
-                                    <label for="muatanPelajaran" class="form-check-label">Muatan Pelajaran</label>
+                                    <input type="radio" name="jenis" value="Muatan Pelajaran" id="mataPelajaran" class="form-check-input">
+                                    <label for="mataPelajaran" class="form-check-label">Muatan Pelajaran</label>
                                 </div>
                             </div>
                             <div class="form-group">

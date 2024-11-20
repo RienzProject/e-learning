@@ -16,8 +16,8 @@
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Nama Siswa</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Jenis Kelamin</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>

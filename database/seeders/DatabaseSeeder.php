@@ -25,11 +25,11 @@ class DatabaseSeeder extends Seeder
             'NIP' => '197505261998072002',
             'username' => 'nova',
             'password' => Hash::make('novasari'),
-            'tempat_lahir' => 'Denpasar',
+            'tempat_lahir' => 'Kalimantan',
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
             'agama' => 'Kristen',
-            'gender' => 'Laki - Laki',
+            'gender' => 'Perempuan',
             'role' => 'Kepala Sekolah'
         ]);
 
@@ -43,18 +43,18 @@ class DatabaseSeeder extends Seeder
         //     'nama' => 'II (Dua)',
         // ]);
 
-        DB::table('users')->insert([
-            'name' => 'Budi Setyo',
-            'NIP' => '198205172008012015',
-            'username' => 'budisetyo',
-            'password' => Hash::make('password'),
-            'tempat_lahir' => 'Denpasar',
-            'tanggal_lahir' => '1998-06-19',
-            'alamat' => 'Perumahan Denpasar No. 1',
-            'agama' => 'Islam',
-            'gender' => 'Laki - Laki',
-            'role' => 'Wali Kelas'
-        ]);
+        // DB::table('users')->insert([
+        //     'name' => 'Budi Setyo',
+        //     'NIP' => '198205172008012015',
+        //     'username' => 'budisetyo',
+        //     'password' => Hash::make('password'),
+        //     'tempat_lahir' => 'Denpasar',
+        //     'tanggal_lahir' => '1998-06-19',
+        //     'alamat' => 'Perumahan Denpasar No. 1',
+        //     'agama' => 'Islam',
+        //     'gender' => 'Laki - Laki',
+        //     'role' => 'Wali Kelas'
+        // ]);
 
         // DB::table('wali_kelas')->insert([
         //     'user_id' => 2,

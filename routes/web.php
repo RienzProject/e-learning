@@ -123,8 +123,8 @@ Route::group(['middleware' => ['auth']], function () {
 		})->name('dashboard-guru');
 
 		Route::get('/profil-guru', [ProfilGuruController::class, 'index']);
-		Route::post('/upload-foto', [ProfilGuruController::class, 'uploadFoto']);
-		Route::post('/ubah-password', [ProfilGuruController::class, 'ubahPassword']);
+		Route::post('/upload-foto-guru', [ProfilGuruController::class, 'uploadFoto']);
+		Route::post('/ubah-password-guru', [ProfilGuruController::class, 'ubahPassword']);
         Route::get('/kelas-guru', [GuruSiswaController::class, 'index'])->name('kelas-guru');
         Route::get('/kelas-guru/{id}', [GuruSiswaController::class, 'show'])->name('detail-kelas');
         Route::get('/kelas-guru/siswa/{id}', [GuruSiswaController::class, 'detailSiswa'])->name('detail-kelas-siswa');
