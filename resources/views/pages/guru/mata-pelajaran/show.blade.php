@@ -4,7 +4,7 @@
     <div>
         <div class="text-end">
             <a href="{{ route('upload-tugas', $mataPelajaran->id) }}">
-                <button type="button" class="btn bg-gradient-info">Input Nilai Siswa</button>
+                <button type="button" class="btn bg-gradient-info">Upload Tugas</button>
             </a>
         </div>
         <div class="py-1">

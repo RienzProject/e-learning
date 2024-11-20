@@ -29,7 +29,8 @@ class NilaiSiswaController extends Controller
         $siswa = Siswa::whereHas('kelasSemester', function ($query) use ($kelasId) {
             $query->where('kelas_id', '=', $kelasId);
         })->get();
-        $mataPelajaran = MataPelajaran::where('kelas_id', '=', $kelasId)->get();
+        // $mataPelajaran = MataPelajaran::where('kelas_id', '=', $kelasId)->get();
+        $mataPelajaran = MataPelajaran::where('user_id', $user->id)->get();
 
         return view('pages.wali-kelas.nilai-siswa.create', compact('siswa', 'mataPelajaran'));
     }
