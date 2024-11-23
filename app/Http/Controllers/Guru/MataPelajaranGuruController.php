@@ -122,6 +122,7 @@ class MataPelajaranGuruController extends Controller
 
         $user = Auth::user();
         $kelasId = GuruKelas::where('kelas_id', $mataPelajaran->kelas_id)->value('kelas_id');
+        $kelas = KelasSemester::with('kelas')->where('kelas_id', $kelasId)->first();
         $siswa = Siswa::whereHas('kelasSemester', function ($query) use ($kelasId) {
             $query->where('kelas_id', $kelasId);
         })->get();
@@ -133,7 +134,7 @@ class MataPelajaranGuruController extends Controller
             }
         }
 
-        return view('pages.guru.mata-pelajaran.input-nilai-tugas', compact('uploadTugas', 'siswa', 'nilaiSiswaMap'));
+        return view('pages.guru.mata-pelajaran.input-nilai-tugas', compact('uploadTugas', 'siswa', 'nilaiSiswaMap', 'kelas'));
     }
 
     public function inputNilaiStoreGuru(Request $request)

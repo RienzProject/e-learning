@@ -41,6 +41,12 @@
                                         <span>: &nbsp; {{ $uploadTugas->mataPelajaran->nama }}</span>
                                     </li>
                                 </tr>
+                                <tr>
+                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item d-flex">
+                                        <strong class="text-dark" style="width: 150px;">Kelas</strong>
+                                        <span>: &nbsp; {{ $kelas->kelas->nama }}</span>
+                                    </li>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

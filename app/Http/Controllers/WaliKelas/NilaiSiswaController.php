@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
 use App\Models\CapaianKompetensi;
+use App\Models\KelasSemester;
 use App\Models\MataPelajaran;
 use App\Models\NilaiSiswa;
 use App\Models\Siswa;
@@ -95,7 +96,8 @@ class NilaiSiswaController extends Controller
 
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-
+        $kelas = KelasSemester::with('kelas')->where('kelas_id', $kelasId)->first();
+        // dd($kelas);
         $siswa = Siswa::whereHas('kelasSemester', function ($query) use ($kelasId) {
             $query->where('kelas_id', $kelasId);
         })->get();
@@ -107,7 +109,7 @@ class NilaiSiswaController extends Controller
             }
         }
 
-        return view('pages.wali-kelas.nilai-siswa.cek-nilai-siswa', compact('uploadTugas', 'siswa', 'nilaiSiswaMap'));
+        return view('pages.wali-kelas.nilai-siswa.cek-nilai-siswa', compact('uploadTugas', 'siswa', 'nilaiSiswaMap', 'kelas'));
     }
 
     public function inputNilaiStore(Request $request)
