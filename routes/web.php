@@ -113,7 +113,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::resource('/rapor-siswa', RaporSiswaController::class);
         Route::post('/buat-rapor-siswa/{id}', [RaporSiswaController::class, 'storeRapor']);
-		Route::post('/rapor-siswa/unduh-rapor/{id}', [RaporSiswaController::class, 'unduhRapor']);
+		Route::get('/rapor-siswa/unduh-rapor/{id}', [RaporSiswaController::class, 'pdfRapor'])->name('unduh-rapor');
 	});
 
 	Route::group(['middleware' => 'role:Guru'], function () {

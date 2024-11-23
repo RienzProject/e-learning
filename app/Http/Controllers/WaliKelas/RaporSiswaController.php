@@ -10,7 +10,10 @@ use App\Models\Presensi;
 use App\Models\Rapor;
 use App\Models\Siswa;
 use App\Models\SiswaMataPelajaran;
+use App\Models\User;
 use App\Models\WaliKelas;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -229,5 +232,64 @@ class RaporSiswaController extends Controller
         }
 
         return redirect()->back()->withErrors('File tidak ditemukan.');
+    }
+
+    public function pdfRapor($id) {
+        $user = Auth::user()->load('waliKelas');
+        $siswa = Siswa::with(['kelasSemester', 'presensi', 'ekstrakulikuler'])
+                  ->where('id', $id)->findOrFail($id);
+
+        $kepalaSekolah = User::where('role', 'Kepala Sekolah')->first();
+
+        $rapor = Rapor::where('siswa_id', $id)->first();
+
+        $siswaMataPelajaran = SiswaMataPelajaran::with(['mataPelajaran', 'nilaiSiswa' => function ($query) use ($id) {
+            $query->where('upload_tugas_id', $id);
+        }, 'capaianKompetensi'])
+        ->where('siswa_id', $id)
+        ->get();
+
+        $ekstrakulikuler = EkstrakulikulerSiswa::with('ekstrakulikuler')
+        ->where('siswa_id', $id)
+        ->get();
+
+        $presensi = Presensi::where('siswa_id', $id)
+            ->select('status_presensi', DB::raw('count(*) as count'))
+            ->groupBy('status_presensi')
+            ->get();
+
+        $statuses = ['Sakit', 'Izin', 'Tanpa Keterangan'];
+
+        $presensiGrouped = collect();
+
+        foreach ($statuses as $status) {
+            $presensiGrouped->push(
+                $presensi->firstWhere('status_presensi', $status) ?? (object) ['status_presensi' => $status, 'count' => 0]
+            );
+        }
+
+        $totalNilaiAkhir = 0;
+        $jumlahMataPelajaran = 0;
+
+        foreach ($siswaMataPelajaran as $mapel) {
+            if ($mapel->nilai_akhir !== null) {
+                $totalNilaiAkhir += $mapel->nilai_akhir;
+                $jumlahMataPelajaran++;
+            }
+        }
+
+        if ($jumlahMataPelajaran > 0) {
+            $nilaiRapor = $totalNilaiAkhir / $jumlahMataPelajaran;
+        } else {
+            $nilaiRapor = 0;
+        }
+
+        $name = strtoupper(str_replace(' ', '_', $siswa->nama));
+        $dt = strtoupper(Carbon::now()->isoFormat('D_MMMM_Y'));
+
+        $statusNaikKelas = ($nilaiRapor >= 78) ? 'Naik Kelas' : 'Tidak Naik Kelas';
+
+        $pdf = PDF::loadView('pages.wali-kelas.rapor-siswa.rapor', compact('siswa', 'dt','statusNaikKelas', 'user', 'kepalaSekolah' ,'rapor', 'siswaMataPelajaran', 'ekstrakulikuler', 'presensiGrouped'))->setPaper('A4');
+        return $pdf->stream('RAPOR_'.$name.('_').$dt.'.pdf');
     }
 }
