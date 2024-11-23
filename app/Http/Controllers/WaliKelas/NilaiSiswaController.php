@@ -18,7 +18,19 @@ class NilaiSiswaController extends Controller
 {
     public function index()
     {
-        $data = UploadTugas::all();
+        $user = Auth::user();
+        $waliKelas = WaliKelas::where('user_id', $user->id)->first();
+        // $data = UploadTugas::all();
+
+        // tambahan where('user_id', $user->id) jika ingin hanya mata pelajaran wali kelas itu aja
+        $data = UploadTugas::whereHas('mataPelajaran', function ($query) use ($waliKelas) {
+            $query->where('kelas_id', $waliKelas->kelas_id);
+        })
+        ->whereHas('mataPelajaran.kelasSemester', function ($query) {
+            $query->where('status', 'Aktif');
+        })
+        ->get();
+
         return view('pages.wali-kelas.nilai-siswa.index', compact('data'));
     }
 
