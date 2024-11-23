@@ -58,9 +58,15 @@ class EkstrakulikulerSiswaController extends Controller
      */
     public function show($id)
     {
-        $data = EkstrakulikulerSiswa::where('ekstrakulikuler_id', $id)->get();
         $ekstrakulikuler = Ekstrakulikuler::find($id);
+        $user = Auth::user();
+        $waliKelas = WaliKelas::where('user_id', $user->id)->first();
+        $siswa = Siswa::whereHas('kelasSemester.kelas', function ($query) use ($waliKelas) {
+            $query->where('id', $waliKelas->kelas_id);
+        });
 
+        $data = EkstrakulikulerSiswa::where('ekstrakulikuler_id', $id)->where('siswa_id', $siswa->pluck('id'))->get();
+        // dd($data);
         return view('pages.wali-kelas.ekstrakulikuler-siswa.show', compact('data', 'ekstrakulikuler'));
     }
 
@@ -117,7 +123,6 @@ class EkstrakulikulerSiswaController extends Controller
 
     public function pageCatatanSiswa($id) {
         $data = EkstrakulikulerSiswa::find($id);
-
         return view('pages.wali-kelas.ekstrakulikuler-siswa.input-catatan-siswa', compact('data'));
     }
 
