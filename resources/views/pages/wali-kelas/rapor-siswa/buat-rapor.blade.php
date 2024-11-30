@@ -90,16 +90,40 @@
                         <thead>
                             <tr>
                                 <th class="text-uppercase text-xs font-weight-bolder" style="width: 5%;">No</th>
-                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 25%;">Mata
-                                    Pelajaran</th>
-                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 15%;">Nilai
-                                    Akhir</th>
-                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 55%;">Capaian
-                                    Kompetensi</th>
+                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 25%;">Mata Pelajaran
+                                </th>
+                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 15%;">Nilai Akhir</th>
+                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 55%;">Capaian Kompetensi
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- Tampilkan Mata Pelajaran -->
                             @foreach ($siswaMataPelajaran as $index => $item)
+                                <tr>
+                                    <td class="text-center align-middle">{{ $index + 1 }}</td>
+                                    <td class="text-center align-middle">{{ $item->mataPelajaran->nama }}</td>
+                                    <td class="text-center align-middle">{{ $item->nilai_akhir }}</td>
+                                    <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">
+                                        {{ $item->capaianKompetensi->catatan ?? '-' }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                        <thead>
+                            <tr>
+                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 5%;">No</th>
+                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 25%;">Muatan Pelajaran
+                                </th>
+                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 15%;">Nilai Akhir</th>
+                                <th class="text-uppercase text-xs font-weight-bolder" style="width: 55%;">Capaian Kompetensi
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Tampilkan Muatan Pelajaran -->
+                            @foreach ($siswaMuatanPelajaran as $index => $item)
                                 <tr>
                                     <td class="text-center align-middle">{{ $index + 1 }}</td>
                                     <td class="text-center align-middle">{{ $item->mataPelajaran->nama }}</td>

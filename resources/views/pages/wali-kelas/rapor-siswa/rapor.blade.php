@@ -13,9 +13,8 @@
             font-family: 'Arial', sans-serif;
         }
 
-        header {
+        .center {
             text-align: center;
-            margin-bottom: 10px;
         }
 
         h1 {
@@ -137,10 +136,20 @@
 </head>
 
 <body>
-    <header>
-        <h2 class="small-margin">LAPORAN HASIL BELAJAR</h2>
-        <h2 class="small-margin">(RAPOR)</h2>
-    </header>
+    <table>
+        <tr>
+            <td><img src="{{ public_path('assets/img/logo-sekolah.png') }}" alt=""
+                    style="width: 100px; height: 100px;"></td>
+            <td class="center">
+                <font size="4"><b>LAPORAN HASIL BELAJAR <br> (RAPOR) SD NEGERI 009 MARANG KAYU</b></font> <br>
+                <font size="2">Alamat: Jl. Batu Menetes RT 17,
+                    Marang Kayu, Sebuntal,
+                    Kode Pos: 75385,
+                    Kabupaten Kutai Kartanegara,
+                    Provinsi Kalimantan Timur</font>
+            </td>
+        </tr>
+    </table>
     <div class="container">
         <table class="info-table">
             <tr>
@@ -189,7 +198,7 @@
                         </tr>
                     @endforeach
                 </tbody>
-                {{-- <thead>
+                <thead>
                     <tr style="font-size: 14px;">
                         <th style="width: 5%;">No</th>
                         <th style="width: 25%;">Muatan Pelajaran</th>
@@ -198,16 +207,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($ekstrakulikuler as $index => $item)
+                    @foreach ($siswaMuatanPelajaran as $index => $item)
                         <tr>
                             <td class="text-center align-middle">{{ $index + 1 }}</td>
-                            <td class="text-center align-middle">{{ $item->ekstrakulikuler->nama }}</td>
-                            <td class="text-center align-middle">{{ $item->predikat }}</td>
+                            <td class="text-center align-middle">{{ $item->mataPelajaran->nama }}</td>
+                            <td class="align-middle" style="text-align: center;">{{ $item->nilai_akhir }}</td>
                             <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">
-                                {{ $item->keterangan }}</td>
+                                {{ $item->capaianKompetensi->catatan ?? '-' }}
+                            </td>
                         </tr>
                     @endforeach
-                </tbody> --}}
+                </tbody>
             </table>
         </div>
         <div>

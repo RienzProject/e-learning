@@ -30,7 +30,7 @@ class SiswaMataPelajaran extends Model
 
     public function capaianKompetensi()
     {
-        return $this->hasOne(CapaianKompetensi::class);
+        return $this->hasOne(CapaianKompetensi::class, 'siswa_mata_pelajaran_id');
     }
 }
 

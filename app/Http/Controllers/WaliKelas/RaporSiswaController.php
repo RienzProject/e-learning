@@ -81,10 +81,30 @@ class RaporSiswaController extends Controller
 
         $rapor = Rapor::where('siswa_id', $id)->first();
 
-        $siswaMataPelajaran = SiswaMataPelajaran::with(['mataPelajaran', 'nilaiSiswa' => function ($query) use ($id) {
-            $query->where('upload_tugas_id', $id);
-        }, 'capaianKompetensi'])
-        ->where('siswa_id', $id)
+        $siswaMataPelajaran = SiswaMataPelajaran::with([
+            'mataPelajaran',
+            'nilaiSiswa' => function ($query) use ($id) {
+                $query->where('upload_tugas_id', $id);
+            },
+            'capaianKompetensi'
+        ])
+        ->where('siswa_mata_pelajaran.siswa_id', $id)
+        ->whereHas('mataPelajaran', function($query) {
+            $query->where('jenis', 'Mata Pelajaran');
+        })
+        ->get();
+
+        $siswaMuatanPelajaran = SiswaMataPelajaran::with([
+            'mataPelajaran',
+            'nilaiSiswa' => function ($query) use ($id) {
+                $query->where('upload_tugas_id', $id);
+            },
+            'capaianKompetensi'
+        ])
+        ->where('siswa_mata_pelajaran.siswa_id', $id)
+        ->whereHas('mataPelajaran', function($query) {
+            $query->where('jenis', 'Muatan Pelajaran');
+        })
         ->get();
 
         $ekstrakulikuler = EkstrakulikulerSiswa::with('ekstrakulikuler')
@@ -124,7 +144,7 @@ class RaporSiswaController extends Controller
 
         $statusNaikKelas = ($nilaiRapor >= 78) ? 'Naik Kelas' : 'Tidak Naik Kelas';
 
-        return view('pages.wali-kelas.rapor-siswa.buat-rapor', compact('siswa', 'siswaMataPelajaran', 'nilaiRapor', 'statusNaikKelas', 'rapor', 'ekstrakulikuler', 'presensiGrouped'));
+        return view('pages.wali-kelas.rapor-siswa.buat-rapor', compact('siswa', 'siswaMataPelajaran', 'siswaMuatanPelajaran', 'nilaiRapor', 'statusNaikKelas', 'rapor', 'ekstrakulikuler', 'presensiGrouped'));
     }
 
     public function storeRapor($id)
@@ -243,10 +263,30 @@ class RaporSiswaController extends Controller
 
         $rapor = Rapor::where('siswa_id', $id)->first();
 
-        $siswaMataPelajaran = SiswaMataPelajaran::with(['mataPelajaran', 'nilaiSiswa' => function ($query) use ($id) {
-            $query->where('upload_tugas_id', $id);
-        }, 'capaianKompetensi'])
-        ->where('siswa_id', $id)
+        $siswaMataPelajaran = SiswaMataPelajaran::with([
+            'mataPelajaran',
+            'nilaiSiswa' => function ($query) use ($id) {
+                $query->where('upload_tugas_id', $id);
+            },
+            'capaianKompetensi'
+        ])
+        ->where('siswa_mata_pelajaran.siswa_id', $id)
+        ->whereHas('mataPelajaran', function($query) {
+            $query->where('jenis', 'Mata Pelajaran');
+        })
+        ->get();
+
+        $siswaMuatanPelajaran = SiswaMataPelajaran::with([
+            'mataPelajaran',
+            'nilaiSiswa' => function ($query) use ($id) {
+                $query->where('upload_tugas_id', $id);
+            },
+            'capaianKompetensi'
+        ])
+        ->where('siswa_mata_pelajaran.siswa_id', $id)
+        ->whereHas('mataPelajaran', function($query) {
+            $query->where('jenis', 'Muatan Pelajaran');
+        })
         ->get();
 
         $ekstrakulikuler = EkstrakulikulerSiswa::with('ekstrakulikuler')
@@ -289,7 +329,7 @@ class RaporSiswaController extends Controller
 
         $statusNaikKelas = ($nilaiRapor >= 78) ? 'Naik Kelas' : 'Tidak Naik Kelas';
 
-        $pdf = PDF::loadView('pages.wali-kelas.rapor-siswa.rapor', compact('siswa', 'dt','statusNaikKelas', 'user', 'kepalaSekolah' ,'rapor', 'siswaMataPelajaran', 'ekstrakulikuler', 'presensiGrouped'))->setPaper('A4');
+        $pdf = PDF::loadView('pages.wali-kelas.rapor-siswa.rapor', compact('siswa', 'dt','statusNaikKelas', 'user', 'kepalaSekolah' ,'rapor', 'siswaMataPelajaran', 'siswaMuatanPelajaran', 'ekstrakulikuler', 'presensiGrouped'))->setPaper('A4');
         return $pdf->stream('RAPOR_'.$name.('_').$dt.'.pdf');
     }
 }
