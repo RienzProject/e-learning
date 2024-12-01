@@ -11,6 +11,7 @@ use App\Http\Controllers\Guru\ProfilGuruController;
 use App\Http\Controllers\Guru\SiswaController as GuruSiswaController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\KepalaSekolah\DashboardController as KepalaSekolahDashboardController;
 use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
 use App\Http\Controllers\KepalaSekolah\IdentitasSiswaController;
 use App\Http\Controllers\KepalaSekolah\KelasController;
@@ -49,9 +50,7 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function () {
 	// Kepala Sekolah
 	Route::group(['middleware' => 'role:Kepala Sekolah'], function () {
-		Route::get('dashboard-kepala-sekolah', function () {
-			return view('pages.kepala-sekolah.dashboard-kepala-sekolah');
-		})->name('dashboard-kepala-sekolah');
+        Route::get('/dashboard-kepala-sekolah', [KepalaSekolahDashboardController::class, 'index'])->name('dashboard-kepala-sekolah');
 
 		Route::get('/profil-kepala-sekolah', [ProfilKepalaSekolahController::class, 'index']);
 		Route::post('/upload-foto-kepala-sekolah', [ProfilKepalaSekolahController::class, 'uploadFoto']);
