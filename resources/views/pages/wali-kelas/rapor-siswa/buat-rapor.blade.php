@@ -103,7 +103,7 @@
                                 <tr>
                                     <td class="text-center align-middle">{{ $index + 1 }}</td>
                                     <td class="text-center align-middle">{{ $item->mataPelajaran->nama }}</td>
-                                    <td class="text-center align-middle">{{ $item->nilai_akhir }}</td>
+                                    <td class="text-center align-middle">{{ $item->nilai_akhir ?? '-' }}</td>
                                     <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">
                                         {{ $item->capaianKompetensi->catatan ?? '-' }}
                                     </td>
@@ -127,7 +127,7 @@
                                 <tr>
                                     <td class="text-center align-middle">{{ $index + 1 }}</td>
                                     <td class="text-center align-middle">{{ $item->mataPelajaran->nama }}</td>
-                                    <td class="text-center align-middle">{{ $item->nilai_akhir }}</td>
+                                    <td class="text-center align-middle">{{ $item->nilai_akhir ?? '-' }}</td>
                                     <td style="word-wrap: break-word; white-space: normal; overflow-wrap: break-word;">
                                         {{ $item->capaianKompetensi->catatan ?? '-' }}
                                     </td>

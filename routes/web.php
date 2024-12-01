@@ -22,6 +22,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\WaliKelas\CapaianKompetensiController;
+use App\Http\Controllers\WaliKelas\DashboardController;
 use App\Http\Controllers\WaliKelas\EkstrakulikulerSiswaController;
 use App\Http\Controllers\WaliKelas\JadwalKelasController;
 use App\Http\Controllers\WaliKelas\KelolaRuangPresensiController;
@@ -74,9 +75,7 @@ Route::group(['middleware' => ['auth']], function () {
 	// ---WaliKelas
 	Route::group(['middleware' => 'role:Wali Kelas'], function () {
 		Route::get('/', [HomeController::class, 'home']);
-		Route::get('dashboard-wali-kelas', function () {
-			return view('pages.wali-kelas.dashboard-wali-kelas');
-		})->name('dashboard-wali-kelas');
+		Route::get('/dashboard-wali-kelas', [DashboardController::class, 'index'])->name('dashboard-wali-kelas');
 
 		Route::get('/profil', [ProfilController::class, 'index']);
 		Route::post('/upload-foto', [ProfilController::class, 'uploadFoto']);

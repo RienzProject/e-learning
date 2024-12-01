@@ -127,17 +127,24 @@ class RaporSiswaController extends Controller
         }
 
         $totalNilaiAkhir = 0;
-        $jumlahMataPelajaran = 0;
+        $jumlahPelajaran = 0;
 
         foreach ($siswaMataPelajaran as $mapel) {
             if ($mapel->nilai_akhir !== null) {
                 $totalNilaiAkhir += $mapel->nilai_akhir;
-                $jumlahMataPelajaran++;
+                $jumlahPelajaran++;
             }
         }
 
-        if ($jumlahMataPelajaran > 0) {
-            $nilaiRapor = $totalNilaiAkhir / $jumlahMataPelajaran;
+        foreach ($siswaMuatanPelajaran as $muatan) {
+            if ($muatan->nilai_akhir !== null) {
+                $totalNilaiAkhir += $muatan->nilai_akhir;
+                $jumlahPelajaran++;
+            }
+        }
+
+        if ($jumlahPelajaran > 0) {
+            $nilaiRapor = $totalNilaiAkhir / $jumlahPelajaran;
         } else {
             $nilaiRapor = 0;
         }
@@ -309,25 +316,32 @@ class RaporSiswaController extends Controller
         }
 
         $totalNilaiAkhir = 0;
-        $jumlahMataPelajaran = 0;
+        $jumlahPelajaran = 0;
 
         foreach ($siswaMataPelajaran as $mapel) {
             if ($mapel->nilai_akhir !== null) {
                 $totalNilaiAkhir += $mapel->nilai_akhir;
-                $jumlahMataPelajaran++;
+                $jumlahPelajaran++;
             }
         }
 
-        if ($jumlahMataPelajaran > 0) {
-            $nilaiRapor = $totalNilaiAkhir / $jumlahMataPelajaran;
+        foreach ($siswaMuatanPelajaran as $muatan) {
+            if ($muatan->nilai_akhir !== null) {
+                $totalNilaiAkhir += $muatan->nilai_akhir;
+                $jumlahPelajaran++;
+            }
+        }
+
+        if ($jumlahPelajaran > 0) {
+            $nilaiRapor = $totalNilaiAkhir / $jumlahPelajaran;
         } else {
             $nilaiRapor = 0;
         }
 
+        $statusNaikKelas = ($nilaiRapor >= 78) ? 'Naik Kelas' : 'Tidak Naik Kelas';
+
         $name = strtoupper(str_replace(' ', '_', $siswa->nama));
         $dt = strtoupper(Carbon::now()->isoFormat('D_MMMM_Y'));
-
-        $statusNaikKelas = ($nilaiRapor >= 78) ? 'Naik Kelas' : 'Tidak Naik Kelas';
 
         $pdf = PDF::loadView('pages.wali-kelas.rapor-siswa.rapor', compact('siswa', 'dt','statusNaikKelas', 'user', 'kepalaSekolah' ,'rapor', 'siswaMataPelajaran', 'siswaMuatanPelajaran', 'ekstrakulikuler', 'presensiGrouped'))->setPaper('A4');
         return $pdf->stream('RAPOR_'.$name.('_').$dt.'.pdf');
