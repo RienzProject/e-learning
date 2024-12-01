@@ -57,11 +57,11 @@ class TenagaPengajarController extends Controller
 
             $waliKelas->save();
         }  elseif($jabatan == 'Guru') {
-            $existingClass = GuruKelas::where('kelas_id', $request->kelas_id)->first();
+            // $existingClass = GuruKelas::where('kelas_id', $request->kelas_id)->first();
 
-            if ($existingClass) {
-                return redirect()->back()->with('error', 'Guru yang dipilih telah mempunyai kelas')->withInput();
-            }
+            // if ($existingClass) {
+            //     return redirect()->back()->with('error', 'Guru yang dipilih telah mempunyai kelas')->withInput();
+            // }
 
             $user->name = $request->name;
             $user->NIP = $request->NIP;
@@ -96,7 +96,7 @@ class TenagaPengajarController extends Controller
             $user->save();
         }
 
-        return redirect('/tenaga-pengajar');
+        return redirect('/tenaga-pengajar')->with('success', 'Tenaga pengajar berhasil ditambah')->withInput();
     }
 
     public function show($id)
