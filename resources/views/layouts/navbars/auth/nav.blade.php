@@ -27,12 +27,24 @@
                             <span class="d-sm-inline d-none">Profil</span>
                         </a>
                     </li>
+                    <li class="nav-item d-flex align-items-center me-3">
+                        <a href="{{ url('/biodata-wali-kelas') }}" class="nav-link text-body font-weight-bold px-0">
+                            <i class="fa fa-user me-sm-1"></i>
+                            <span class="d-sm-inline d-none">Biodata</span>
+                        </a>
+                    </li>
                 @endif
                 @if (Auth::user()->role == 'Kepala Sekolah')
                     <li class="nav-item d-flex align-items-center me-3">
                         <a href="{{ url('/profil-kepala-sekolah') }}" class="nav-link text-body font-weight-bold px-0">
                             <i class="fa fa-user me-sm-1"></i>
                             <span class="d-sm-inline d-none">Profil</span>
+                        </a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center me-3">
+                        <a href="{{ url('/biodata-sekolah') }}" class="nav-link text-body font-weight-bold px-0">
+                            <i class="fa fa-user me-sm-1"></i>
+                            <span class="d-sm-inline d-none">Biodata</span>
                         </a>
                     </li>
                 @endif

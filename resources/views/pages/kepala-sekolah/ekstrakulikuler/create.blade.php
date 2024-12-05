@@ -4,7 +4,7 @@
 <div class="container-fluid py-4 mt-10">
     <div class="card">
         <div class="card-header pb-0 px-3">
-            <h6 class="mb-0">Tambah Data Kelas</h6>
+            <h6 class="mb-0">Tambah Data Ekstrakulikuler</h6>
         </div>
         <div class="card-body pt-4 p-3">
             <form action="/ekstrakulikuler" method="POST" role="form text-left">

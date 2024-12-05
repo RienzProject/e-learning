@@ -19,6 +19,7 @@ use App\Http\Controllers\KepalaSekolah\MataPelajaranController;
 use App\Http\Controllers\KepalaSekolah\SemesterController;
 use App\Http\Controllers\KepalaSekolah\TenagaPengajarController;
 use App\Http\Controllers\KepalaSekolah\ProfilKepalaSekolahController;
+use App\Http\Controllers\KepalaSekolah\BiodataSekolahController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
@@ -51,6 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
 	// Kepala Sekolah
 	Route::group(['middleware' => 'role:Kepala Sekolah'], function () {
         Route::get('/dashboard-kepala-sekolah', [KepalaSekolahDashboardController::class, 'index'])->name('dashboard-kepala-sekolah');
+
+		Route::get('/biodata-sekolah', [BiodataSekolahController::class, 'index'])->name('biodata-sekolah');
 
 		Route::get('/profil-kepala-sekolah', [ProfilKepalaSekolahController::class, 'index']);
 		Route::post('/upload-foto-kepala-sekolah', [ProfilKepalaSekolahController::class, 'uploadFoto']);
