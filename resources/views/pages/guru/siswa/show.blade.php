@@ -27,8 +27,10 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
+                                            <div class="d-flex px-2 py-1 align-items-center">
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <img src="{{ asset('storage/foto-siswa/' . $item->foto) }}"
+                                                        alt="image" class="avatar avatar-sm rounded-circle me-2">
                                                     <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
                                                 </div>
                                             </div>
