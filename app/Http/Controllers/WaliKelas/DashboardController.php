@@ -11,15 +11,28 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    public function index(){
+    public function index() {
         $getCountSiswa = $this->getCountSiswa();
         $getCountHasilAkhir = $this->getCountHasilAkhir();
 
+        // Pie chart gender
+        $getCountByGender = $this->getCountByGender();
+        $genderLabels = ['Laki-laki', 'Perempuan'];
+        $genderData = [
+            $getCountByGender['Laki-laki'],
+            $getCountByGender['Perempuan']
+        ];
+        $genderColors = ['#4e73df', '#1cc88a'];
+
         return view('pages.wali-kelas.dashboard-wali-kelas', compact(
             'getCountSiswa',
-            'getCountHasilAkhir'
+            'getCountHasilAkhir',
+            'genderLabels',
+            'genderData',
+            'genderColors'
         ));
     }
+
 
     private function getCountSiswa(){
         $user = Auth::user();
@@ -79,6 +92,29 @@ class DashboardController extends Controller
         return [
             'naik_kelas' => $naikKelasCount,
             'tidak_naik_kelas' => $tidakNaikKelasCount
+        ];
+    }
+
+    private function getCountByGender() {
+        $user = Auth::user();
+
+        $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id')->first();
+
+        $data = Siswa::whereHas('kelasSemester', function ($query) use ($kelasId) {
+            $query->where('status', 'Aktif')
+                  ->where('kelas_id', $kelasId);
+        })
+        ->selectRaw('jenis_kelamin, COUNT(*) as count')
+        ->groupBy('jenis_kelamin')
+        ->get()
+        ->pluck('count', 'jenis_kelamin');
+
+        $countLakiLaki = $data['Laki-Laki'] ?? 0;
+        $countPerempuan = $data['Perempuan'] ?? 0;
+
+        return [
+            'Laki-laki' => $countLakiLaki,
+            'Perempuan' => $countPerempuan
         ];
     }
 }

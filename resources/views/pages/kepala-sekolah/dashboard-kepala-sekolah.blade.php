@@ -93,7 +93,7 @@
     </div>
     <div class="row mt-4">
         <div class="col-lg-6 mb-lg-0 mb-6">
-            <div class="card z-index-2">
+            <div class="card z-index-2 h-100">
                 <div class="card-body p-3">
                     <div class="bg-gradient-dark border-radius-lg py-3 pe-1 mb-3">
                         <div class="chart">
