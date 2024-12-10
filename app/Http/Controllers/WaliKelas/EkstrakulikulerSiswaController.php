@@ -65,7 +65,9 @@ class EkstrakulikulerSiswaController extends Controller
             $query->where('id', $waliKelas->kelas_id);
         });
 
-        $data = EkstrakulikulerSiswa::where('ekstrakulikuler_id', $id)->where('siswa_id', $siswa->pluck('id'))->get();
+        $data = EkstrakulikulerSiswa::where('ekstrakulikuler_id', $id)
+                ->whereIn('siswa_id', $siswa->pluck('id'))
+                ->get();
         // dd($data);
         return view('pages.wali-kelas.ekstrakulikuler-siswa.show', compact('data', 'ekstrakulikuler'));
     }
