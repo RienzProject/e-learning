@@ -14,10 +14,11 @@
                         <table id="myTable" class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder text-start">NIS</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Nama Siswa</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Jenis Kelamin</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Semester</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -27,7 +28,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $index + 1 }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $item->NIS }}</h6>
                                                 </div>
                                             </div>
                                         </td>
@@ -60,6 +61,24 @@
                                                 <div class="d-flex px-2 py-1">
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm">{{ $item->kelasSemester->kelas->nama }}
+                                                        </h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        @endif
+                                        @if ($item->kelas_semester_id == null)
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm text-danger">Belum Ditentukan</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm">{{ $item->kelasSemester->semester->nama }}
                                                         </h6>
                                                     </div>
                                                 </div>

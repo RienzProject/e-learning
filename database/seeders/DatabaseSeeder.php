@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Faker\Factory as Faker;
+use App\Models\Siswa;
+use App\Models\DataOrangTua;
 
 class DatabaseSeeder extends Seeder
 {
@@ -258,28 +261,45 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('kelas_semester')->insert([
+            'kelas_id' => 2,
+            'semester_id' => 1,
+            'status' => 'Aktif'
+        ]);
+
+        DB::table('kelas_semester')->insert([
+            'kelas_id' => 3,
+            'semester_id' => 1,
+            'status' => 'Aktif'
+        ]);
+
+        DB::table('kelas_semester')->insert([
+            'kelas_id' => 4,
+            'semester_id' => 1,
+            'status' => 'Aktif'
+        ]);
+
+        DB::table('kelas_semester')->insert([
+            'kelas_id' => 5,
+            'semester_id' => 1,
+            'status' => 'Aktif'
+        ]);
+
+        DB::table('kelas_semester')->insert([
+            'kelas_id' => 6,
+            'semester_id' => 1,
+            'status' => 'Aktif'
+        ]);
+
+        DB::table('kelas_semester')->insert([
             'kelas_id' => 1,
             'semester_id' => 2,
             'status' => 'Non Aktif'
         ]);
 
-
-        DB::table('kelas_semester')->insert([
-            'kelas_id' => 2,
-            'semester_id' => 1,
-            'status' => 'Aktif'
-        ]);
-
         DB::table('kelas_semester')->insert([
             'kelas_id' => 2,
             'semester_id' => 2,
             'status' => 'Non Aktif'
-        ]);
-
-        DB::table('kelas_semester')->insert([
-            'kelas_id' => 3,
-            'semester_id' => 1,
-            'status' => 'Aktif'
         ]);
 
         DB::table('kelas_semester')->insert([
@@ -290,20 +310,8 @@ class DatabaseSeeder extends Seeder
 
         DB::table('kelas_semester')->insert([
             'kelas_id' => 4,
-            'semester_id' => 1,
-            'status' => 'Aktif'
-        ]);
-
-        DB::table('kelas_semester')->insert([
-            'kelas_id' => 4,
             'semester_id' => 2,
             'status' => 'Non Aktif'
-        ]);
-
-        DB::table('kelas_semester')->insert([
-            'kelas_id' => 5,
-            'semester_id' => 1,
-            'status' => 'Aktif'
         ]);
 
         DB::table('kelas_semester')->insert([
@@ -314,123 +322,301 @@ class DatabaseSeeder extends Seeder
 
         DB::table('kelas_semester')->insert([
             'kelas_id' => 6,
-            'semester_id' => 1,
-            'status' => 'Aktif'
-        ]);
-
-        DB::table('kelas_semester')->insert([
-            'kelas_id' => 6,
             'semester_id' => 2,
             'status' => 'Non Aktif'
         ]);
 
-        DB::table('siswa')->insert([
-            'nama' => 'Intan Tri Suaka Henry',
-            'NIS' => '12345',
-            'NISN' => '12345',
-            'jenis_kelamin' => 'Perempuan',
-            'tempat_lahir' => 'Denpasar',
-            'tanggal_lahir' => '2020-02-05',
-            'agama' => 'Islam',
-            'pendidikan_sebelumnya' => 'TK',
-            'alamat' => 'Jl. Soetomo',
-            'foto' => '',
-            'kelas_semester_id' => 1
-        ]);
+        $faker = Faker::create('id_ID'); // Locale Indonesia
 
-        DB::table('data_orang_tua')->insert([
-            'siswa_id' => 1,
-            'nama_ayah' => 'tes',
-            'nama_ibu' => 'tes',
-            'pekerjaan_ayah' => 'tes',
-            'pekerjaan_ibu' => 'tes',
-            'jalan' => 'tes',
-            'kelurahan' => 'tes',
-            'kecamatan' => 'tes',
-            'kota' => 'tes',
-            'provinsi' => 'tes',
-        ]);
+        foreach (range(1, 20) as $index) { // Generate 50 data dummy
+            // Nilai default atau template statis
+            $jenis_kelamin = $faker->randomElement(['Laki-Laki', 'Perempuan']);
+            $tempat_lahir = $faker->city;
+            $agama = $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']);
+            $pendidikan_sebelumnya = $faker->randomElement(['TK', 'PAUD']);
+            $nama = $faker->name($jenis_kelamin == 'Laki-Laki' ? 'male' : 'female'); // Nama siswa tetap sama
 
-        DB::table('siswa')->insert([
-            'nama' => 'Henry',
-            'NIS' => '12345',
-            'NISN' => '12345',
-            'jenis_kelamin' => 'Perempuan',
-            'tempat_lahir' => 'Denpasar',
-            'tanggal_lahir' => '2020-02-05',
-            'agama' => 'Islam',
-            'pendidikan_sebelumnya' => 'TK',
-            'alamat' => 'Jl. Soetomo',
-            'foto' => '',
-            'kelas_semester_id' => 1
-        ]);
+            // Generate NIS dan NISN yang sama untuk semester ganjil dan genap
+            $nis = $faker->unique()->numberBetween(10000, 99999);
+            $nisn = $faker->unique()->numberBetween(100000, 999999);
 
-        DB::table('data_orang_tua')->insert([
-            'siswa_id' => 2,
-            'nama_ayah' => 'tes',
-            'nama_ibu' => 'tes',
-            'pekerjaan_ayah' => 'tes',
-            'pekerjaan_ibu' => 'tes',
-            'jalan' => 'tes',
-            'kelurahan' => 'tes',
-            'kecamatan' => 'tes',
-            'kota' => 'tes',
-            'provinsi' => 'tes',
-        ]);
+            // Data untuk semester ganjil
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,
+                'NISN' => $nisn,
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 1, // Semester ganjil
+            ]);
 
-        DB::table('siswa')->insert([
-            'nama' => 'Putri',
-            'NIS' => '12345',
-            'NISN' => '12345',
-            'jenis_kelamin' => 'Perempuan',
-            'tempat_lahir' => 'Denpasar',
-            'tanggal_lahir' => '2020-02-05',
-            'agama' => 'Islam',
-            'pendidikan_sebelumnya' => 'TK',
-            'alamat' => 'Jl. Soetomo',
-            'foto' => '',
-            'kelas_semester_id' => 3
-        ]);
+            // Data untuk semester genap dengan NIS dan NISN yang sama
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,  // Pastikan NIS yang sama
+                'NISN' => $nisn, // Pastikan NISN yang sama
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 7, // Semester genap
+            ]);
+        }
 
-        DB::table('data_orang_tua')->insert([
-            'siswa_id' => 2,
-            'nama_ayah' => 'tes',
-            'nama_ibu' => 'tes',
-            'pekerjaan_ayah' => 'tes',
-            'pekerjaan_ibu' => 'tes',
-            'jalan' => 'tes',
-            'kelurahan' => 'tes',
-            'kecamatan' => 'tes',
-            'kota' => 'tes',
-            'provinsi' => 'tes',
-        ]);
+        $faker = Faker::create('id_ID'); // Locale Indonesia
 
-        DB::table('siswa')->insert([
-            'nama' => 'Dummy',
-            'NIS' => '12345',
-            'NISN' => '12345',
-            'jenis_kelamin' => 'Perempuan',
-            'tempat_lahir' => 'Denpasar',
-            'tanggal_lahir' => '2020-02-05',
-            'agama' => 'Islam',
-            'pendidikan_sebelumnya' => 'TK',
-            'alamat' => 'Jl. Soetomo',
-            'foto' => '',
-            'kelas_semester_id' => 5
-        ]);
+        foreach (range(1, 20) as $index) { // Generate 50 data dummy
+            // Nilai default atau template statis
+            $jenis_kelamin = $faker->randomElement(['Laki-Laki', 'Perempuan']);
+            $tempat_lahir = $faker->city;
+            $agama = $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']);
+            $pendidikan_sebelumnya = $faker->randomElement(['TK', 'PAUD']);
+            $nama = $faker->name($jenis_kelamin == 'Laki-Laki' ? 'male' : 'female'); // Nama siswa tetap sama
 
-        DB::table('data_orang_tua')->insert([
-            'siswa_id' => 3,
-            'nama_ayah' => 'tes',
-            'nama_ibu' => 'tes',
-            'pekerjaan_ayah' => 'tes',
-            'pekerjaan_ibu' => 'tes',
-            'jalan' => 'tes',
-            'kelurahan' => 'tes',
-            'kecamatan' => 'tes',
-            'kota' => 'tes',
-            'provinsi' => 'tes',
-        ]);
+            // Generate NIS dan NISN yang sama untuk semester ganjil dan genap
+            $nis = $faker->unique()->numberBetween(10000, 99999);
+            $nisn = $faker->unique()->numberBetween(100000, 999999);
+
+            // Data untuk semester ganjil
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,
+                'NISN' => $nisn,
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 2, // Semester ganjil
+            ]);
+
+            // Data untuk semester genap dengan NIS dan NISN yang sama
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,  // Pastikan NIS yang sama
+                'NISN' => $nisn, // Pastikan NISN yang sama
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 8, // Semester genap
+            ]);
+        }
+
+        $faker = Faker::create('id_ID'); // Locale Indonesia
+
+        foreach (range(1, 20) as $index) { // Generate 50 data dummy
+            // Nilai default atau template statis
+            $jenis_kelamin = $faker->randomElement(['Laki-Laki', 'Perempuan']);
+            $tempat_lahir = $faker->city;
+            $agama = $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']);
+            $pendidikan_sebelumnya = $faker->randomElement(['TK', 'PAUD']);
+            $nama = $faker->name($jenis_kelamin == 'Laki-Laki' ? 'male' : 'female'); // Nama siswa tetap sama
+
+            // Generate NIS dan NISN yang sama untuk semester ganjil dan genap
+            $nis = $faker->unique()->numberBetween(10000, 99999);
+            $nisn = $faker->unique()->numberBetween(100000, 999999);
+
+            // Data untuk semester ganjil
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,
+                'NISN' => $nisn,
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 3, // Semester ganjil
+            ]);
+
+            // Data untuk semester genap dengan NIS dan NISN yang sama
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,  // Pastikan NIS yang sama
+                'NISN' => $nisn, // Pastikan NISN yang sama
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 9, // Semester genap
+            ]);
+        }
+
+        $faker = Faker::create('id_ID'); // Locale Indonesia
+
+        foreach (range(1, 20) as $index) { // Generate 50 data dummy
+            // Nilai default atau template statis
+            $jenis_kelamin = $faker->randomElement(['Laki-Laki', 'Perempuan']);
+            $tempat_lahir = $faker->city;
+            $agama = $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']);
+            $pendidikan_sebelumnya = $faker->randomElement(['TK', 'PAUD']);
+            $nama = $faker->name($jenis_kelamin == 'Laki-Laki' ? 'male' : 'female'); // Nama siswa tetap sama
+
+            // Generate NIS dan NISN yang sama untuk semester ganjil dan genap
+            $nis = $faker->unique()->numberBetween(10000, 99999);
+            $nisn = $faker->unique()->numberBetween(100000, 999999);
+
+            // Data untuk semester ganjil
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,
+                'NISN' => $nisn,
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 4, // Semester ganjil
+            ]);
+
+            // Data untuk semester genap dengan NIS dan NISN yang sama
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,  // Pastikan NIS yang sama
+                'NISN' => $nisn, // Pastikan NISN yang sama
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 10, // Semester genap
+            ]);
+        }
+
+        $faker = Faker::create('id_ID'); // Locale Indonesia
+
+        foreach (range(1, 20) as $index) { // Generate 50 data dummy
+            // Nilai default atau template statis
+            $jenis_kelamin = $faker->randomElement(['Laki-Laki', 'Perempuan']);
+            $tempat_lahir = $faker->city;
+            $agama = $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']);
+            $pendidikan_sebelumnya = $faker->randomElement(['TK', 'PAUD']);
+            $nama = $faker->name($jenis_kelamin == 'Laki-Laki' ? 'male' : 'female'); // Nama siswa tetap sama
+
+            // Generate NIS dan NISN yang sama untuk semester ganjil dan genap
+            $nis = $faker->unique()->numberBetween(10000, 99999);
+            $nisn = $faker->unique()->numberBetween(100000, 999999);
+
+            // Data untuk semester ganjil
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,
+                'NISN' => $nisn,
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 5, // Semester ganjil
+            ]);
+
+            // Data untuk semester genap dengan NIS dan NISN yang sama
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,  // Pastikan NIS yang sama
+                'NISN' => $nisn, // Pastikan NISN yang sama
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 11, // Semester genap
+            ]);
+        }
+
+        $faker = Faker::create('id_ID'); // Locale Indonesia
+
+        foreach (range(1, 20) as $index) { // Generate 50 data dummy
+            // Nilai default atau template statis
+            $jenis_kelamin = $faker->randomElement(['Laki-Laki', 'Perempuan']);
+            $tempat_lahir = $faker->city;
+            $agama = $faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha']);
+            $pendidikan_sebelumnya = $faker->randomElement(['TK', 'PAUD']);
+            $nama = $faker->name($jenis_kelamin == 'Laki-Laki' ? 'male' : 'female'); // Nama siswa tetap sama
+
+            // Generate NIS dan NISN yang sama untuk semester ganjil dan genap
+            $nis = $faker->unique()->numberBetween(10000, 99999);
+            $nisn = $faker->unique()->numberBetween(100000, 999999);
+
+            // Data untuk semester ganjil
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,
+                'NISN' => $nisn,
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 6, // Semester ganjil
+            ]);
+
+            // Data untuk semester genap dengan NIS dan NISN yang sama
+            DB::table('siswa')->insert([
+                'nama' => $nama,
+                'NIS' => $nis,  // Pastikan NIS yang sama
+                'NISN' => $nisn, // Pastikan NISN yang sama
+                'jenis_kelamin' => $jenis_kelamin,
+                'tempat_lahir' => $tempat_lahir,
+                'tanggal_lahir' => $faker->date('Y-m-d', '2015-12-31'),
+                'agama' => $agama,
+                'pendidikan_sebelumnya' => $pendidikan_sebelumnya,
+                'alamat' => $faker->address,
+                'foto' => '', // Foto dapat dikosongkan atau diisi sesuai kebutuhan
+                'kelas_semester_id' => 12, // Semester genap
+            ]);
+        }
+
+        //Faker orang tua
+        $faker = Faker::create('id_ID');
+
+        // Ambil semua siswa
+        $siswa = Siswa::all();
+
+        // Loop untuk setiap siswa
+        foreach ($siswa as $s) {
+            DB::table('data_orang_tua')->insert([
+                'siswa_id' => $s->id,  // Menggunakan ID siswa
+                'nama_ayah' => $faker->name,  // Nama Ayah acak
+                'nama_ibu' => $faker->name,  // Nama Ibu acak
+                'pekerjaan_ayah' => $faker->jobTitle,  // Pekerjaan Ayah acak
+                'pekerjaan_ibu' => $faker->jobTitle,  // Pekerjaan Ibu acak
+                'jalan' => $faker->streetAddress,  // Alamat Jalan acak
+                'kelurahan' => $faker->city,  // Kelurahan acak
+                'kecamatan' => $faker->city,  // Kecamatan acak
+                'kota' => $faker->city,  // Kota acak
+                'provinsi' => $faker->state,  // Provinsi acak
+            ]);
+        }
 
         DB::table('ekstrakulikuler')->insert([
             'nama' => 'Pramuka',
