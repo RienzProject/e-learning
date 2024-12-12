@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Budi Setyo',
+            'name' => 'Budi Setyo Rezadi',
             'NIP' => '198205172008012015',
             'username' => 'budisetyo',
             'password' => Hash::make('password'),
@@ -77,11 +77,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Budi Setyo',
+            'name' => 'Farman Indra Nugraha',
             'NIP' => '198205172008012015',
             'username' => 'kelas2',
             'password' => Hash::make('kelas2'),
-            'tempat_lahir' => 'Denpasar',
+            'tempat_lahir' => 'Kalimantan',
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
             'agama' => 'Islam',
@@ -91,7 +91,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Budi Setyo',
+            'name' => 'Mega Putri',
             'NIP' => '198205172008012015',
             'username' => 'kelas3',
             'password' => Hash::make('kelas3'),
@@ -99,13 +99,13 @@ class DatabaseSeeder extends Seeder
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
             'agama' => 'Islam',
-            'gender' => 'Laki - Laki',
+            'gender' => 'Perempuan',
             'foto' => '',
             'role' => 'Wali Kelas'
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Budi Setyo',
+            'name' => 'Maytha Rosalina',
             'NIP' => '198205172008012015',
             'username' => 'kelas4',
             'password' => Hash::make('kelas4'),
@@ -113,27 +113,27 @@ class DatabaseSeeder extends Seeder
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
             'agama' => 'Islam',
-            'gender' => 'Laki - Laki',
+            'gender' => 'Perempuan',
             'foto' => '',
             'role' => 'Wali Kelas'
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Budi Setyo',
+            'name' => 'Bagas Rezaldi',
             'NIP' => '198205172008012015',
             'username' => 'kelas5',
             'password' => Hash::make('kelas5'),
             'tempat_lahir' => 'Denpasar',
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
-            'agama' => 'Islam',
+            'agama' => 'Kristen',
             'gender' => 'Laki - Laki',
             'foto' => '',
             'role' => 'Wali Kelas'
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Budi Setyo',
+            'name' => 'Ayu Cahya Ningtias',
             'NIP' => '198205172008012015',
             'username' => 'kelas6',
             'password' => Hash::make('kelas6'),
@@ -141,35 +141,35 @@ class DatabaseSeeder extends Seeder
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
             'agama' => 'Islam',
-            'gender' => 'Laki - Laki',
+            'gender' => 'Perempuan',
             'foto' => '',
             'role' => 'Wali Kelas'
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Budi Setyo',
+            'name' => 'Daniel Kristanto',
             'NIP' => '198205172008012015',
             'username' => 'guru1',
             'password' => Hash::make('guru1'),
             'tempat_lahir' => 'Denpasar',
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
-            'agama' => 'Islam',
+            'agama' => 'Hindu',
             'gender' => 'Laki - Laki',
             'foto' => '',
             'role' => 'Guru'
         ]);
 
         DB::table('users')->insert([
-            'name' => 'Budi Setyo',
+            'name' => 'Marta Kumalasari',
             'NIP' => '198205172008012015',
             'username' => 'guru2',
             'password' => Hash::make('guru2'),
             'tempat_lahir' => 'Denpasar',
             'tanggal_lahir' => '1998-06-19',
             'alamat' => 'Perumahan Denpasar No. 1',
-            'agama' => 'Islam',
-            'gender' => 'Laki - Laki',
+            'agama' => 'Kristen',
+            'gender' => 'Perempuan',
             'foto' => '',
             'role' => 'Guru'
         ]);
@@ -326,6 +326,8 @@ class DatabaseSeeder extends Seeder
             'status' => 'Non Aktif'
         ]);
 
+        //faker penyedia data dummy
+        //membuat data siswa random
         $faker = Faker::create('id_ID'); // Locale Indonesia
 
         foreach (range(1, 20) as $index) { // Generate 50 data dummy
