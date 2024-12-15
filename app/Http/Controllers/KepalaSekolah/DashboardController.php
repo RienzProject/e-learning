@@ -91,6 +91,7 @@ class DashboardController extends Controller
         $jumlahSiswaPerKelas = Siswa::select('kelas.id as kelas_id', 'kelas.nama as nama_kelas', DB::raw('count(*) as total_siswa'))
             ->join('kelas_semester', 'kelas_semester.id', '=', 'siswa.kelas_semester_id')
             ->join('kelas', 'kelas.id', '=', 'kelas_semester.kelas_id')
+            ->where('kelas_semester.status', 'Aktif')
             ->groupBy('kelas.id', 'kelas.nama')
             ->get();
 
