@@ -14,14 +14,14 @@
                             <div class="form-group flex-grow-1 me-2">
                                 <label for="awal_tahun_ajaran" class="form-control-label">Awal Tahun Ajaran <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Masukkan Awal Tahun Ajaran"
+                                <input class="form-control" type="number" placeholder="Masukkan Awal Tahun Ajaran"
                                     name="awal_tahun_ajaran" required>
                             </div>
                             <h3 class="mt-3 ms-3 me-3">/</h3>
                             <div class="form-group flex-grow-1 ms-2">
                                 <label for="akhir_tahun_ajaran" class="form-control-label">Akhir Tahun Ajaran <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Masukkan Akhir Tahun Ajaran"
+                                <input class="form-control" type="number" placeholder="Masukkan Akhir Tahun Ajaran"
                                     name="akhir_tahun_ajaran" required>
                             </div>
                         </div>

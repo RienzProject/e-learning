@@ -14,7 +14,7 @@
                             <div class="form-group">
                                 <label for="kode" class="form-control-label">Kode Mata Pelajaran <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Masukkan Kode Mata Pelajaran"
+                                <input class="form-control" type="number" placeholder="Masukkan Kode Mata Pelajaran"
                                     name="kode" required>
                             </div>
                             <div class="form-group">
